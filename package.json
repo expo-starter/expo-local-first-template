@@ -1,5 +1,5 @@
 {
-  "name": "@launchtrack/base",
+  "name": "@launchtrack/expo-starter",
   "main": "index.js",
   "version": "1.0.1",
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.6.1",
-    "@hookform/resolvers": "^3.3.4",
+    "@hookform/resolvers": "^3.3.4",gi
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
