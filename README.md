@@ -30,7 +30,7 @@ Production-ready starter for Expo (React Native) App! Expo (v51), React Navigati
 Run the following command on your local environment:
 
 ```shell
-bunx create-expo-app --template @launchtrack/expo-base
+bunx create-expo-app --template @launchtrack/expo-starter
 ```
 
 Then, you can run locally in development mode with live reload:
