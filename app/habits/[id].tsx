@@ -31,7 +31,7 @@ import { getHabits, setHabits } from "~/lib/storage";
 import { cn } from "~/lib/utils";
 
 
-const HabbitCategories = [
+const HabitCategories = [
   { value: "tom@cruise.com", label: "Health And Wellness", },
   { value: "napoleon@dynamite.com", label: "Personal Development" },
   { value: "kunfu@panda.com", label: "Social And Relationships" },
@@ -51,7 +51,7 @@ const HabitDurations  = [
 
 const formSchema = z.object({
   name: z.string().min(4, {
-    message: "Please enter a habbit name.",
+    message: "Please enter a habit name.",
   }),
   description: z.string().min(1, {
     message: "We need to know.",
@@ -124,7 +124,7 @@ export default function FormScreen() {
             render={({ field }) => (
               <FormInput
                 label="Name"
-                placeholder="habbit name"
+                placeholder="habit name"
                 description="This will help you remind."
                 autoCapitalize="none"
                 {...field}
@@ -137,9 +137,9 @@ export default function FormScreen() {
             name="description"
             render={({ field }) => (
               <FormTextarea
-                label="Give yourself"
-                placeholder="Habbit for ..."
-                description="habbit description"
+                label="Description"
+                placeholder="Habit for ..."
+                description="habit description"
                 {...field}
               />
             )}
@@ -150,8 +150,8 @@ export default function FormScreen() {
             name="category"
             render={({ field }) => (
               <FormSelect
-                label="If you were an email, which one would you be?"
-                description="Hint: it is not the one you use."
+                label="Category"
+                description="Select on of the habit description"
                 {...field}
               >
                 <SelectTrigger
@@ -164,7 +164,7 @@ export default function FormScreen() {
                       "text-sm native:text-lg",
                       field.value ? "text-foreground" : "text-muted-foreground"
                     )}
-                    placeholder="Select a habbit type"
+                    placeholder="Select a habit category"
                   />
                 </SelectTrigger>
                 <SelectContent
@@ -172,7 +172,7 @@ export default function FormScreen() {
                   style={{ width: selectTriggerWidth }}
                 >
                   <SelectGroup>
-                    {HabbitCategories.map((cat) => (
+                    {HabitCategories.map((cat) => (
                       <SelectItem
                         key={cat.value}
                         label={cat.label}
@@ -236,7 +236,7 @@ export default function FormScreen() {
             render={({ field }) => (
               <FormSwitch
                 label="Enable reminder"
-                description="We will send you spam."
+                description="We will send you notification reminder."
                 {...field}
               />
             )}

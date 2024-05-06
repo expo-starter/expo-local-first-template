@@ -79,7 +79,7 @@ export default function Screen() {
           title: "Habits",
           headerRight: () => (
             <Button onPress={() => router.push("/habits/new")}>
-              <Text>Add Habit</Text>
+              <Text>Add</Text>
             </Button>
           ),
         }}
