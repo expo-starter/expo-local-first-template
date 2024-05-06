@@ -2,7 +2,7 @@
   "name": "@launchtrack/expo-starter",
   "main": "index.js",
   "version": "1.0.2",
-  "homepage": "https://github.com/launchtrack/expo-starter",
+  "homepage": "https://launchtrack.dev",
   "repository": "git@github.com:launchtrack/expo-starter.git",
   "license": "Apache-2.0",
   "scripts": {

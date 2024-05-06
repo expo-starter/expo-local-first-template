@@ -4,7 +4,7 @@
   <a href="https://launchtrack.dev/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
 </p>
 
-Production-ready starter for Expo (React Native) App! Expo (v51), React Navigation (v6), NativeWind (v4), Zustand, Reanimated 2, Dark Mode and much more.
+Production-ready starter for Expo (React Native) App! Expo (v50), React Navigation (v6), NativeWind (v4), Zustand, Reanimated 2, Dark Mode and much more.
 
 
 ## 📚 What's inside
@@ -40,6 +40,10 @@ bun run dev:ios
 # Or
 bun run dev:android
 ```
+
+<p align="center">
+  <a href="https://launchtrack.dev/"><img src="assets/preview-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
+</p>
 
 This will open the app in the iOS simulator or Android emulator.
 
