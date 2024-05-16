@@ -3,6 +3,7 @@ import { FlashList } from "@shopify/flash-list";
 import { Stack, useRouter } from "expo-router";
 import * as React from "react";
 import { FlatList, View } from "react-native";
+import { ThemeToggle } from "~/components/ThemeToggle";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import {
@@ -38,7 +39,7 @@ const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
         </View>
       </CardHeader>
       <CardContent>
-        
+
       </CardContent>
       <CardFooter className="flex-col gap-3">
         <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
@@ -55,7 +56,7 @@ export default function Screen() {
   const [habits, setHabits] = React.useState<Habit[]>([]);
   const ref = React.useRef(null);
   useScrollToTop(ref);
-  
+
   const router = useRouter();
 
   React.useEffect(() => {
@@ -78,9 +79,7 @@ export default function Screen() {
         options={{
           title: "Habits",
           headerRight: () => (
-            <Button onPress={() => router.push("/habits/new")}>
-              <Text>Add</Text>
-            </Button>
+            <ThemeToggle />
           ),
         }}
       />
@@ -97,6 +96,9 @@ export default function Screen() {
         keyExtractor={(item) => item.id}
         ListFooterComponent={<View className='py-4' />}
       />
+      <Button onPress={() => router.push("/habits/new")}>
+        <Text>Add</Text>
+      </Button>
     </View>
   );
 }

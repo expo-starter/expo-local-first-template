@@ -12,8 +12,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start -c --web",
-    "format": "biome check --no-errors-on-unmatched --apply .",
-    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
+    "export": "expo export -p web",
+    "format": "biome check --no-errors-on-unmatched --apply ."
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.6.1",
@@ -32,7 +32,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-navigation/native": "^6.0.2",
-    "@shopify/flash-list": "^1.6.4",
+    "@shopify/flash-list": "^1.6.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "expo": "~50.0.17",
@@ -43,7 +43,7 @@
     "expo-status-bar": "~1.11.1",
     "expo-system-ui": "~2.9.4",
     "lucide-react-native": "^0.314.0",
-    "nativewind": "^4.0.1",
+    "nativewind": "^4.0.36",
     "phosphor-react-native": "^2.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
