@@ -38,14 +38,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   plugins: [
     [
-      "expo-router",
-      {
-        origin: process.env.NODE_ENV === "production" ? "https://launchtrack.github.io/expo-starter/": null
-      }
+      "expo-router"
     ]
   ],
   experiments: {
-    typedRoutes: true
+    typedRoutes: true,
+    baseUrl: "/expo-starter"
   },
   extra: {
     eas: {
