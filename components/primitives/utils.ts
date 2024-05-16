@@ -1,26 +1,32 @@
-import type { GestureResponderEvent } from 'react-native';
+import type { GestureResponderEvent } from "react-native";
 
 const ToggleGroupUtils = {
   getIsSelected(value: string | string[] | undefined, itemValue: string) {
     if (value === undefined) {
       return false;
     }
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       return value === itemValue;
     }
     return value.includes(itemValue);
   },
-  getNewSingleValue(originalValue: string | string[] | undefined, itemValue: string) {
+  getNewSingleValue(
+    originalValue: string | string[] | undefined,
+    itemValue: string,
+  ) {
     if (originalValue === itemValue) {
       return undefined;
     }
     return itemValue;
   },
-  getNewMultipleValue(originalValue: string | string[] | undefined, itemValue: string) {
+  getNewMultipleValue(
+    originalValue: string | string[] | undefined,
+    itemValue: string,
+  ) {
     if (originalValue === undefined) {
       return [itemValue];
     }
-    if (typeof originalValue === 'string') {
+    if (typeof originalValue === "string") {
       return originalValue === itemValue ? [] : [originalValue, itemValue];
     }
     if (originalValue.includes(itemValue)) {
@@ -33,12 +39,12 @@ const ToggleGroupUtils = {
 const EmptyGestureResponderEvent: GestureResponderEvent = {
   nativeEvent: {
     changedTouches: [],
-    identifier: '0',
+    identifier: "0",
     locationX: 0,
     locationY: 0,
     pageX: 0,
     pageY: 0,
-    target: '0',
+    target: "0",
     timestamp: 0,
     touches: [],
   },
@@ -55,7 +61,7 @@ const EmptyGestureResponderEvent: GestureResponderEvent = {
   stopPropagation: () => {},
   target: {} as any,
   timeStamp: 0,
-  type: '',
+  type: "",
 };
 
 export { ToggleGroupUtils, EmptyGestureResponderEvent };

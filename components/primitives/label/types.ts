@@ -1,4 +1,4 @@
-import type { ViewStyle } from 'react-native';
+import type { ViewStyle } from "react-native";
 
 interface LabelRootProps {
   children: React.ReactNode;

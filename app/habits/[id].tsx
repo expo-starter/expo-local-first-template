@@ -30,9 +30,8 @@ import { Text } from "~/components/ui/text";
 import { getHabits, setHabits } from "~/lib/storage";
 import { cn } from "~/lib/utils";
 
-
 const HabitCategories = [
-  { value: "tom@cruise.com", label: "Health And Wellness", },
+  { value: "tom@cruise.com", label: "Health And Wellness" },
   { value: "napoleon@dynamite.com", label: "Personal Development" },
   { value: "kunfu@panda.com", label: "Social And Relationships" },
   { value: "bruce@lee.com", label: "Productivity" },
@@ -42,11 +41,11 @@ const HabitCategories = [
   { value: "lara@croft.com", label: "Leisure" },
 ];
 
-const HabitDurations  = [
-  {value: 5, label: "5 minutes"},
-  {value: 10, label: "10 minutes"},
-  {value: 15, label: "15 minutes"},
-  {value: 30, label: "30 minutes"}
+const HabitDurations = [
+  { value: 5, label: "5 minutes" },
+  { value: 10, label: "10 minutes" },
+  { value: 15, label: "15 minutes" },
+  { value: 30, label: "30 minutes" },
 ];
 
 const formSchema = z.object({
@@ -60,7 +59,7 @@ const formSchema = z.object({
     { value: z.string(), label: z.string() },
     {
       invalid_type_error: "Please select a favorite email.",
-    }
+    },
   ),
   duration: z.number().int().positive(),
   enableNotifications: z.boolean(),
@@ -91,16 +90,16 @@ export default function FormScreen() {
   };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-
-
     const oldHabits = await getHabits();
-    setHabits([...oldHabits, {
-      ...values,
-      id: Math.random().toString(36).substring(7),
-      category: values.category.value,
-  }]);
-    router.replace('/'); 
-    
+    setHabits([
+      ...oldHabits,
+      {
+        ...values,
+        id: Math.random().toString(36).substring(7),
+        category: values.category.value,
+      },
+    ]);
+    router.replace("/");
   }
 
   return (
@@ -111,7 +110,7 @@ export default function FormScreen() {
       automaticallyAdjustContentInsets={false}
       contentInset={{ top: 12 }}
     >
-       <Stack.Screen
+      <Stack.Screen
         options={{
           title: "New Habit",
         }}
@@ -145,7 +144,7 @@ export default function FormScreen() {
             )}
           />
 
-<FormField
+          <FormField
             control={form.control}
             name="category"
             render={({ field }) => (
@@ -162,7 +161,7 @@ export default function FormScreen() {
                   <SelectValue
                     className={cn(
                       "text-sm native:text-lg",
-                      field.value ? "text-foreground" : "text-muted-foreground"
+                      field.value ? "text-foreground" : "text-muted-foreground",
                     )}
                     placeholder="Select a habit category"
                   />
@@ -229,7 +228,6 @@ export default function FormScreen() {
             }}
           />
 
-         
           <FormField
             control={form.control}
             name="enableNotifications"
@@ -241,7 +239,7 @@ export default function FormScreen() {
               />
             )}
           />
-          
+
           <Button onPress={form.handleSubmit(onSubmit)}>
             <Text>Submit</Text>
           </Button>
@@ -260,4 +258,3 @@ export default function FormScreen() {
     </ScrollView>
   );
 }
-

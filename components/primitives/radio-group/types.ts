@@ -9,7 +9,7 @@ interface RadioGroupItemProps {
   /**
    * nativeID of the label element that describes this radio group item
    */
-  'aria-labelledby': string;
+  "aria-labelledby": string;
 }
 
 export type { RadioGroupRootProps, RadioGroupItemProps };

@@ -1,17 +1,32 @@
-import * as Checkbox from '@radix-ui/react-checkbox';
-import * as React from 'react';
-import { GestureResponderEvent, Pressable, View } from 'react-native';
-import { useAugmentedRef } from '~/components/primitives/hooks';
-import * as Slot from '~/components/primitives/slot';
-import type { ComponentPropsWithAsChild, PressableRef, SlottablePressableProps } from '~/components/primitives/types';
-import type { CheckboxIndicator, CheckboxRootProps } from './types';
+import * as Checkbox from "@radix-ui/react-checkbox";
+import * as React from "react";
+import { GestureResponderEvent, Pressable, View } from "react-native";
+import { useAugmentedRef } from "~/components/primitives/hooks";
+import * as Slot from "~/components/primitives/slot";
+import type {
+  ComponentPropsWithAsChild,
+  PressableRef,
+  SlottablePressableProps,
+} from "~/components/primitives/types";
+import type { CheckboxIndicator, CheckboxRootProps } from "./types";
 
 const CheckboxContext = React.createContext<CheckboxRootProps | null>(null);
 
-const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRootProps>(
+const Root = React.forwardRef<
+  PressableRef,
+  SlottablePressableProps & CheckboxRootProps
+>(
   (
-    { asChild, disabled, checked, onCheckedChange, onPress: onPressProp, role: _role, ...props },
-    ref
+    {
+      asChild,
+      disabled,
+      checked,
+      onCheckedChange,
+      onPress: onPressProp,
+      role: _role,
+      ...props
+    },
+    ref,
   ) => {
     const augmentedRef = useAugmentedRef({ ref });
 
@@ -23,19 +38,19 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
     React.useLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
-        augRef.dataset.state = checked ? 'checked' : 'unchecked';
-        augRef.value = checked ? 'on' : 'off';
+        augRef.dataset.state = checked ? "checked" : "unchecked";
+        augRef.value = checked ? "on" : "off";
       }
     }, [checked]);
 
     React.useLayoutEffect(() => {
       if (augmentedRef.current) {
         const augRef = augmentedRef.current as unknown as HTMLButtonElement;
-        augRef.type = 'button';
-        augRef.role = 'checkbox';
+        augRef.type = "button";
+        augRef.role = "checkbox";
 
         if (disabled) {
-          augRef.dataset.disabled = 'true';
+          augRef.dataset.disabled = "true";
         } else {
           augRef.dataset.disabled = undefined;
         }
@@ -53,7 +68,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
         >
           <Component
             ref={augmentedRef}
-            role='button'
+            role="button"
             onPress={onPress}
             disabled={disabled}
             {...props}
@@ -61,16 +76,16 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & CheckboxRo
         </Checkbox.Root>
       </CheckboxContext.Provider>
     );
-  }
+  },
 );
 
-Root.displayName = 'RootWebCheckbox';
+Root.displayName = "RootWebCheckbox";
 
 function useCheckboxContext() {
   const context = React.useContext(CheckboxContext);
   if (context === null) {
     throw new Error(
-      'Checkbox compound components cannot be rendered outside the Checkbox component'
+      "Checkbox compound components cannot be rendered outside the Checkbox component",
     );
   }
   return context;
@@ -86,7 +101,7 @@ const Indicator = React.forwardRef<
   React.useLayoutEffect(() => {
     if (augmentedRef.current) {
       const augRef = augmentedRef.current as unknown as HTMLDivElement;
-      augRef.dataset.state = checked ? 'checked' : 'unchecked';
+      augRef.dataset.state = checked ? "checked" : "unchecked";
     }
   }, [checked]);
 
@@ -94,7 +109,7 @@ const Indicator = React.forwardRef<
     if (augmentedRef.current) {
       const augRef = augmentedRef.current as unknown as HTMLDivElement;
       if (disabled) {
-        augRef.dataset.disabled = 'true';
+        augRef.dataset.disabled = "true";
       } else {
         augRef.dataset.disabled = undefined;
       }
@@ -109,6 +124,6 @@ const Indicator = React.forwardRef<
   );
 });
 
-Indicator.displayName = 'IndicatorWebCheckbox';
+Indicator.displayName = "IndicatorWebCheckbox";
 
 export { Indicator, Root };

@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { View, TextInput } from 'react-native';
-import { Button } from '~/components/ui/button';
-import { Habit } from './storage';
-
+import React, { useState } from "react";
+import { TextInput, View } from "react-native";
+import { Button } from "~/components/ui/button";
+import { Habit } from "./storage";
 
 interface HabitFormProps {
   onSubmit: (habit: Habit) => void;
   initialHabit?: Habit; // Optional for updating habits
 }
 
-export const HabitForm: React.FC<HabitFormProps> = ({ onSubmit, initialHabit }) => {
-  const [name, setName] = useState(initialHabit?.name || '');
-  const [completedDays, setCompletedDays] = useState<number[]>(initialHabit?.completedDays || []);
+export const HabitForm: React.FC<HabitFormProps> = ({
+  onSubmit,
+  initialHabit,
+}) => {
+  const [name, setName] = useState(initialHabit?.name || "");
+  const [completedDays, setCompletedDays] = useState<number[]>(
+    initialHabit?.completedDays || [],
+  );
 
   const handleSubmit = () => {
     const newHabit: Habit = {
@@ -20,7 +24,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onSubmit, initialHabit }) 
       completedDays,
     };
     onSubmit(newHabit);
-    setName(''); // Reset form after submission
+    setName(""); // Reset form after submission
     setCompletedDays([]);
   };
 
@@ -44,16 +48,17 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onSubmit, initialHabit }) 
                 setCompletedDays([...completedDays, day]);
               }
             }}
-            className={`mr-2 mb-2 px-2 py-1 rounded-md ${completedDays.includes(day) ? 'green.500' : 'gray.300'}`}
+            className={`mr-2 mb-2 px-2 py-1 rounded-md ${
+              completedDays.includes(day) ? "green.500" : "gray.300"
+            }`}
           >
-            {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][day]}
-            </Button>
+            {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][day]}
+          </Button>
         ))}
       </View>
-      <Button onPress={handleSubmit} 
-      className={"bg-blue-500 py-2 rounded-md"}>
-        {initialHabit ? 'Update' : 'Create'}
-        </Button>
+      <Button onPress={handleSubmit} className={"bg-blue-500 py-2 rounded-md"}>
+        {initialHabit ? "Update" : "Create"}
+      </Button>
     </View>
   );
 };

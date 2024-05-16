@@ -4,7 +4,7 @@ interface AvatarRootProps {
 
 interface AvatarImageProps {
   children?: React.ReactNode;
-  onLoadingStatusChange?: (status: 'error' | 'loaded') => void;
+  onLoadingStatusChange?: (status: "error" | "loaded") => void;
 }
 
 export type { AvatarRootProps, AvatarImageProps };

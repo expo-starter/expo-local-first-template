@@ -1,11 +1,11 @@
 type SingleRootProps = {
-  type: 'single';
+  type: "single";
   value: string | undefined;
   onValueChange: (val: string | undefined) => void;
 };
 
 type MultipleRootProps = {
-  type: 'multiple';
+  type: "multiple";
   value: string[];
   onValueChange: (val: string[]) => void;
 };
@@ -19,11 +19,11 @@ type ToggleGroupRootProps = (SingleRootProps | MultipleRootProps) & {
   /**
    * Platform: WEB ONLY
    */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: "horizontal" | "vertical";
   /**
    * Platform: WEB ONLY
    */
-  dir?: 'ltr' | 'rtl';
+  dir?: "ltr" | "rtl";
   /**
    * Platform: WEB ONLY
    */

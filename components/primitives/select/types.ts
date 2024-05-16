@@ -1,4 +1,4 @@
-import type { ForceMountable } from '~/components/primitives/types';
+import type { ForceMountable } from "~/components/primitives/types";
 
 type Option =
   | {
@@ -26,7 +26,7 @@ interface SelectRootProps {
   /**
    * Platform: WEB ONLY
    */
-  dir?: 'ltr' | 'rtl';
+  dir?: "ltr" | "rtl";
   /**
    * Platform: WEB ONLY
    */
@@ -61,7 +61,7 @@ interface SelectContentProps {
   /**
    * Platform: WEB ONLY
    */
-  position?: 'popper' | 'item-aligned' | undefined;
+  position?: "popper" | "item-aligned" | undefined;
 }
 
 interface SelectItemProps {

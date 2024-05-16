@@ -1,11 +1,27 @@
-import * as React from 'react';
-import { Pressable, type GestureResponderEvent } from 'react-native';
-import * as Slot from '~/components/primitives/slot';
-import type { PressableRef, SlottablePressableProps } from '~/components/primitives/types';
-import type { ToggleRootProps } from './types';
+import * as React from "react";
+import { type GestureResponderEvent, Pressable } from "react-native";
+import * as Slot from "~/components/primitives/slot";
+import type {
+  PressableRef,
+  SlottablePressableProps,
+} from "~/components/primitives/types";
+import type { ToggleRootProps } from "./types";
 
-const Root = React.forwardRef<PressableRef, SlottablePressableProps & ToggleRootProps>(
-  ({ asChild, pressed, onPressedChange, disabled, onPress: onPressProp, ...props }, ref) => {
+const Root = React.forwardRef<
+  PressableRef,
+  SlottablePressableProps & ToggleRootProps
+>(
+  (
+    {
+      asChild,
+      pressed,
+      onPressedChange,
+      disabled,
+      onPress: onPressProp,
+      ...props
+    },
+    ref,
+  ) => {
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
       const newValue = !pressed;
@@ -18,7 +34,7 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & ToggleRoot
       <Component
         ref={ref}
         aria-disabled={disabled}
-        role='switch'
+        role="switch"
         aria-selected={pressed}
         onPress={onPress}
         accessibilityState={{
@@ -29,9 +45,9 @@ const Root = React.forwardRef<PressableRef, SlottablePressableProps & ToggleRoot
         {...props}
       />
     );
-  }
+  },
 );
 
-Root.displayName = 'RootNativeToggle';
+Root.displayName = "RootNativeToggle";
 
 export { Root };

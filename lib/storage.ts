@@ -1,8 +1,8 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const HABIT_KEY = 'habits';
+const HABIT_KEY = "habits";
 
-export type Habit ={
+export type Habit = {
   id: string;
   name: string;
   description: string;
@@ -10,7 +10,7 @@ export type Habit ={
   category: string;
   enableNotifications: boolean;
   completedDays?: number[];
-}
+};
 
 export async function getHabits(): Promise<Habit[]> {
   const habitsString = await AsyncStorage.getItem(HABIT_KEY);
@@ -29,4 +29,3 @@ export async function deleteHabit(id: string): Promise<void> {
   const updatedHabits = habits.filter((habit) => habit.id !== id);
   await setHabits(updatedHabits);
 }
-

@@ -31,16 +31,20 @@ const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
   return (
     <Card className="w-full max-w-sm rounded-2xl">
       <CardHeader>
-        <CardTitle className="pb-2">{habit.name}<Badge variant="outline"> <Text>Morning</Text></Badge></CardTitle>
+        <CardTitle className="pb-2">
+          {habit.name}
+          <Badge variant="outline">
+            {" "}
+            <Text>Morning</Text>
+          </Badge>
+        </CardTitle>
         <View className="flex-row">
           <CardDescription className="text-base font-semibold">
             {habit.description}
           </CardDescription>
         </View>
       </CardHeader>
-      <CardContent>
-
-      </CardContent>
+      <CardContent></CardContent>
       <CardFooter className="flex-col gap-3">
         <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
         <View />
@@ -78,23 +82,21 @@ export default function Screen() {
       <Stack.Screen
         options={{
           title: "Habits",
-          headerRight: () => (
-            <ThemeToggle />
-          ),
+          headerRight: () => <ThemeToggle />,
         }}
       />
       <FlashList
         ref={ref}
-        className='native:overflow-hidden rounded-t-lg'
+        className="native:overflow-hidden rounded-t-lg"
         estimatedItemSize={49}
         showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <View className='p-2' />}
+        ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
         renderItem={({ item }) => (
           <HabitCard habit={item} onDelete={() => handleDeleteHabit(item.id)} />
         )}
         keyExtractor={(item) => item.id}
-        ListFooterComponent={<View className='py-4' />}
+        ListFooterComponent={<View className="py-4" />}
       />
       <Button onPress={() => router.push("/habits/new")}>
         <Text>Add</Text>
