@@ -3,6 +3,9 @@ name: Publish PWA to Github Pages
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  
 jobs:
   Build:
     name: Publish PWA to Github Pages
