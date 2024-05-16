@@ -12,7 +12,7 @@ Production-ready starter for Expo (React Native) App! Expo (v50), React Navigati
 - ⚡ [Expo](https://expo.dev) - Built with Expo for cross-platform support
 - ⚛️ [React Native](https://reactnative.dev) for building native apps using React
 - 💎 Integrate with [NativeWind](https://www.nativewind.dev), Tailwind CSS for React Native v4
-- 📁 Expo Router and Expo API 
+- 📁 Expo Router and Expo API
 - 📏 Linter and Code Formatter with [biome](https://biomejs.dev/)
 - 🎨 Common components : Icons, ThemeToggle, Avatar, Button, Card, Progress, Text, Tooltip
 - 🌗 Dark and light mode - Android Navigation Bar matches mode and Persistant mode
