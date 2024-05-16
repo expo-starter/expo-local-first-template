@@ -42,7 +42,7 @@
     },
     "extra": {
       "router": {
-        "origin": false
+        "origin": "https://launchtrack.github.io/expo-starter/"
       },
       "eas": {
         "projectId": ""
