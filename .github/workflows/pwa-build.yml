@@ -14,14 +14,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 Setup Node + PNPM + install deps
-        uses: ./.github/actions/setup-node-pnpm-install
+      - name: 📦 Setup Bun + install deps
+        uses: ./.github/actions/setup-bun-install
 
       - name: ⚙️ Run Prebuild
         run: bun export
         shell: bash
 
-      - name: Deploy
+      - name: 📱 Publish web app
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
