@@ -6,6 +6,7 @@
 
 Production-ready starter for Expo (React Native) App! Expo (v50), React Navigation (v6), NativeWind (v4), Zustand, Reanimated 2, Dark Mode and much more.
 
+[Web App Demo](https://launchtrack.github.io/expo-starter/)
 
 ## 📚 What's inside
 
