@@ -15,6 +15,7 @@ Say goodbye to time-consuming chores such implementing libraries, and developing
 - ⚛️ [React Native v0.73.6](https://reactnative.dev) for building native apps using React
 - 💎 Integrate with [NativeWind v4](https://www.nativewind.dev), Tailwind CSS for React Native
 - 📁 Expo Router and Expo API
+- 📦 [zustand](docs.pmnd.rs/zustand) - State management solution.
 - 🎨 Common components : Icons, ThemeToggle, Avatar, Button, Card, Progress, Text, Tooltip
 - 🌗 Dark and light mode - Android Navigation Bar matches mode and Persistant mode
 - 💡 Absolute Imports using `@` prefix
