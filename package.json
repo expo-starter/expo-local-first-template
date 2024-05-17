@@ -1,7 +1,7 @@
 {
   "name": "@launchtrack/expo-starter",
   "main": "index.js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "homepage": "https://launchtrack.dev",
   "repository": "git@github.com:launchtrack/expo-starter.git",
   "license": "Apache-2.0",
@@ -67,5 +67,7 @@
     "@types/react": "~18.2.45",
     "typescript": "^5.1.3"
   },
-  "trustedDependencies": ["tailwindcss"]
+  "trustedDependencies": [
+    "tailwindcss"
+  ]
 }
