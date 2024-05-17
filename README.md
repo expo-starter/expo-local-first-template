@@ -4,20 +4,21 @@
   <a href="https://launchtrack.dev/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
 </p>
 
-Production-ready starter for Expo (React Native) App! Expo (v50), React Navigation (v6), NativeWind (v4), Zustand, Reanimated 2, Dark Mode and much more.
+Say goodbye to time-consuming chores such implementing libraries, and developing reusable components. Our project boilerplate helps removing repetitive tasks when initiating a project from zero. It includes only the most frequently utilized libraries, so you can hit the ground running with a fully configured setup.
+
 
 [Web App Demo](https://launchtrack.github.io/expo-starter/)
 
 ## 📚 What's inside
 
-- ⚡ [Expo](https://expo.dev) - Built with Expo for cross-platform support
-- ⚛️ [React Native](https://reactnative.dev) for building native apps using React
-- 💎 Integrate with [NativeWind](https://www.nativewind.dev), Tailwind CSS for React Native v4
+- ⚡ [Expo v51](https://expo.dev) - Built with Expo for cross-platform support
+- ⚛️ [React Native v0.73.6](https://reactnative.dev) for building native apps using React
+- 💎 Integrate with [NativeWind v4](https://www.nativewind.dev), Tailwind CSS for React Native
 - 📁 Expo Router and Expo API
-- 📏 Linter and Code Formatter with [biome](https://biomejs.dev/)
 - 🎨 Common components : Icons, ThemeToggle, Avatar, Button, Card, Progress, Text, Tooltip
 - 🌗 Dark and light mode - Android Navigation Bar matches mode and Persistant mode
 - 💡 Absolute Imports using `@` prefix
+- 📏 Linter and Code Formatter with [biome](https://biomejs.dev/)
 - 🗂 VSCode recommended extensions, settings, and snippets to enhance the developer experience.
 
 ### Requirements
