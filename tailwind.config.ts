@@ -1,14 +1,14 @@
-const { hairlineWidth } = require("nativewind/theme");
+// @ts-expect-error - no types
+import nativewind from "nativewind/preset";
+import { hairlineWidth } from "nativewind/theme";
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: "class",
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
-    "./node_modules/@rnr/**/*.{ts,tsx}",
   ],
-  presets: [require("nativewind/preset")],
+  presets: [nativewind],
   theme: {
     extend: {
       colors: {
@@ -66,4 +66,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
+} satisfies import("tailwindcss").Config;

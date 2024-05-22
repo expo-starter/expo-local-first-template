@@ -1,6 +1,7 @@
 import { useScrollToTop } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
-import { Stack, useRouter } from "expo-router";
+import { eq } from "drizzle-orm";
+import { Link, Stack, useRouter } from "expo-router";
 import * as React from "react";
 import { FlatList, View } from "react-native";
 import { ThemeToggle } from "~/components/ThemeToggle";
@@ -16,7 +17,9 @@ import {
 } from "~/components/ui/card";
 import { Progress } from "~/components/ui/progress";
 import { Text } from "~/components/ui/text";
-import { Habit, deleteHabit, getHabits } from "~/lib/storage";
+import { Habit, habitTable } from "~/db/schema";
+import { db, useMigrationHelper } from "~/db";
+
 
 type HabitProps = {
   habit: Habit;
@@ -25,16 +28,15 @@ type HabitProps = {
 
 const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
   const getCompletedDayCount = () => {
-    return habit.completedDays?.length || 0;
+    // return habit.completedDays?.length || 0;
   };
 
   return (
-    <Card className="w-full max-w-sm rounded-2xl">
+    <Card className="w-full rounded-2xl">
       <CardHeader>
         <CardTitle className="pb-2">
           {habit.name}
           <Badge variant="outline">
-            {" "}
             <Text>Morning</Text>
           </Badge>
         </CardTitle>
@@ -44,38 +46,65 @@ const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
           </CardDescription>
         </View>
       </CardHeader>
-      <CardContent></CardContent>
-      <CardFooter className="flex-col gap-3">
+      <CardContent/>
+      <CardFooter className="flex-col gap-3 flex-1">
         <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
-        <View />
-        <Button variant="outline" className="shadow shadow-foreground/5">
-          <Text>Update</Text>
+        <Button variant="outline" className="shadow shadow-foreground/5" onPress={onDelete}>
+          <Text>Delete</Text>
         </Button>
-      </CardFooter>
+        </CardFooter>
     </Card>
   );
 };
 
+
 export default function Screen() {
+
+  const { success, error } = useMigrationHelper();
+
+  if (error) {
+    return (
+      <View className="flex-1 gap-5 p-6 bg-secondary/30">
+        <Text>Migration error: {error.message}</Text>
+      </View>
+    );
+  }
+  if (!success) {
+    return (
+      <View className="flex-1 gap-5 p-6 bg-secondary/30">
+        <Text>Migration is in progress...</Text>
+      </View>
+    );
+  }
+
+
+  return <ScreenContent />
+}
+
+
+function ScreenContent() {
   const [habits, setHabits] = React.useState<Habit[]>([]);
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
   const router = useRouter();
 
+  const fetchHabits = async () => {
+    const fetchedHabits = await db.select().from(habitTable).execute()
+    setHabits(fetchedHabits);
+  };
+
+
+  const handleDeleteHabit = async (id: string) => {
+    await db.delete(habitTable).where(eq(habitTable.id, id)).execute();;
+    await fetchHabits();
+    return;
+  };
+
   React.useEffect(() => {
-    const fetchHabits = async () => {
-      const fetchedHabits = await getHabits();
-      setHabits(fetchedHabits);
-    };
     fetchHabits();
   }, []);
 
-  const handleDeleteHabit = (id: string) => {
-    const updatedHabits = habits.filter((habit) => habit.id !== id);
-    setHabits(updatedHabits);
-    deleteHabit(id); // Update storage as well
-  };
 
   return (
     <View className="flex-1 gap-5 p-6 bg-secondary/30">
@@ -98,9 +127,12 @@ export default function Screen() {
         keyExtractor={(item) => item.id}
         ListFooterComponent={<View className="py-4" />}
       />
-      <Button onPress={() => router.push("/habits/new")}>
-        <Text>Add</Text>
-      </Button>
-    </View>
+      <Link href="/create" asChild>
+        <Button>
+          <Text>Add</Text>
+        </Button>
+      </Link>
+
+    </View >
   );
 }

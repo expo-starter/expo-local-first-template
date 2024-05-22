@@ -27,10 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+
 import { Text } from "~/components/ui/text";
 import { habitTable } from "~/db/schema";
 import { db } from "~/db";
 import { cn } from "~/lib/utils";
+
 
 const HabitCategories = [
   { value: "health", label: "Health And Wellness" },

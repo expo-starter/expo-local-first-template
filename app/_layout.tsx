@@ -1,3 +1,4 @@
+import "./styles.css";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Theme, ThemeProvider } from "@react-navigation/native";
@@ -11,6 +12,7 @@ import { PortalHost } from "~/components/primitives/portal";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
+
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -76,6 +78,7 @@ export default function RootLayout() {
         <BottomSheetModalProvider>
           <Stack>
             <Stack.Screen name="index" />
+            <Stack.Screen name="create" options={{ presentation: "modal" }} />
           </Stack>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>

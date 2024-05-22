@@ -22,6 +22,12 @@ Say goodbye to time-consuming chores such implementing libraries, and developing
 - 📏 Linter and Code Formatter with [biome](https://biomejs.dev/)
 - 🗂 VSCode recommended extensions, settings, and snippets to enhance the developer experience.
 
+New :
+- Offline mode with [Expo SQLite](https://docs.expo.dev/versions/latest/sdk/sqlite/) and [DrizzleORM](https://drizzle.dev)
+
+In-progress :
+- [Cloudflare D1](https://developers.cloudflare.com/d1/) for data persistance on Web as well as offline mode
+
 ### Requirements
 
 - Node.js 20+ and pnpm or bun
