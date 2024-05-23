@@ -3,4 +3,6 @@ const { withNativeWind } = require("nativewind/metro");
 
 const config = getDefaultConfig(__dirname);
 
-module.exports = withNativeWind(config, { input: "./global.css" });
+config.resolver.sourceExts.push('sql');
+
+module.exports = withNativeWind(config, { input: "./app/styles.css", configPath: "./tailwind.config.ts", });

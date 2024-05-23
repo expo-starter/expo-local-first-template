@@ -1,3 +1,4 @@
+import "./styles.css";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Theme, ThemeProvider } from "@react-navigation/native";
@@ -8,9 +9,11 @@ import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { PortalHost } from "~/components/primitives/portal";
+import { DatabaseProvider } from "~/db/provider";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
+
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -71,15 +74,18 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+      <DatabaseProvider>
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
           <Stack>
             <Stack.Screen name="index" />
+            <Stack.Screen name="create" options={{ presentation: "modal" }} />
           </Stack>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
       <PortalHost />
+      </DatabaseProvider>
     </ThemeProvider>
   );
 }

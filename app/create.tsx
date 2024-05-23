@@ -27,10 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+
 import { Text } from "~/components/ui/text";
-import { useDatabase } from "~/db/provider";
 import { habitTable } from "~/db/schema";
 import { cn } from "~/lib/utils";
+import { useDatabase } from "~/db/provider";
+
 
 const HabitCategories = [
   { value: "health", label: "Health And Wellness" },
@@ -71,7 +73,7 @@ const formSchema = createInsertSchema(habitTable, {
 // TODO: refactor to use UI components
 
 export default function FormScreen() {
-  const {db} = useDatabase();
+  const { db } = useDatabase();
   const router = useRouter();
   const scrollRef = React.useRef<ScrollView>(null);
   const insets = useSafeAreaInsets();
@@ -82,6 +84,7 @@ export default function FormScreen() {
       name: "",
       description: "",
       duration: 5,
+      category: { value: "health", label: "Health And Wellness" },
       enableNotifications: false,
     },
   });
@@ -95,12 +98,18 @@ export default function FormScreen() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
-    await db?.insert(habitTable).values({
-      ...values,
-      category: values.category.value,
-    }).execute();
+    try {
+      const id = await db?.insert(habitTable).values({
+        ...values,
+        category: values.category.value,
+      }).returning()
+      console.log("id", id)
+    } catch (e) {
+      console.log(e)
+    }
 
-    router.replace("/");
+
+    // router.dismiss()
   }
 
   return (
