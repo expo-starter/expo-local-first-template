@@ -102,7 +102,7 @@ function ScreenContent() {
 
   const fetchHabits = async () => {
     const fetchedHabits = await db?.select().from(habitTable).execute()
-    setHabits(fetchedHabits);
+    setHabits(fetchedHabits ?? []);
   };
 
 
