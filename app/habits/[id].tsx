@@ -28,8 +28,8 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Text } from "~/components/ui/text";
+import { useDatabase } from "~/db/provider";
 import { habitTable } from "~/db/schema";
-import { db } from "~/db";
 import { cn } from "~/lib/utils";
 
 const HabitCategories = [
@@ -71,6 +71,7 @@ const formSchema = createInsertSchema(habitTable, {
 // TODO: refactor to use UI components
 
 export default function FormScreen() {
+  const {db} = useDatabase();
   const router = useRouter();
   const scrollRef = React.useRef<ScrollView>(null);
   const insets = useSafeAreaInsets();
@@ -94,7 +95,7 @@ export default function FormScreen() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
 
-    await db.insert(habitTable).values({
+    await db?.insert(habitTable).values({
       ...values,
       category: values.category.value,
     }).execute();

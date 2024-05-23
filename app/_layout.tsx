@@ -9,6 +9,7 @@ import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { PortalHost } from "~/components/primitives/portal";
+import { DatabaseProvider } from "~/db/provider";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
@@ -73,6 +74,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+      <DatabaseProvider>
       <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
@@ -83,6 +85,7 @@ export default function RootLayout() {
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
       <PortalHost />
+      </DatabaseProvider>
     </ThemeProvider>
   );
 }

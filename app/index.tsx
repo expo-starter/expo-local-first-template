@@ -1,9 +1,9 @@
 import { useScrollToTop } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 import { eq } from "drizzle-orm";
-import { Link, Stack, useRouter } from "expo-router";
+import { Link, Stack, useFocusEffect, useRouter } from "expo-router";
 import * as React from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, Pressable, View } from "react-native";
 import { ThemeToggle } from "~/components/ThemeToggle";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -18,7 +18,9 @@ import {
 import { Progress } from "~/components/ui/progress";
 import { Text } from "~/components/ui/text";
 import { Habit, habitTable } from "~/db/schema";
-import { db, useMigrationHelper } from "~/db";
+import { Plus } from "~/components/Icons";
+import { useMigrationHelper } from "~/db/drizzle";
+import { useDatabase } from "~/db/provider";
 
 
 type HabitProps = {
@@ -46,13 +48,13 @@ const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
           </CardDescription>
         </View>
       </CardHeader>
-      <CardContent/>
+      <CardContent />
       <CardFooter className="flex-col gap-3 flex-1">
         <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
         <Button variant="outline" className="shadow shadow-foreground/5" onPress={onDelete}>
           <Text>Delete</Text>
         </Button>
-        </CardFooter>
+      </CardFooter>
     </Card>
   );
 };
@@ -83,20 +85,29 @@ export default function Screen() {
 
 
 function ScreenContent() {
+
+  const {db} = useDatabase();
+
   const [habits, setHabits] = React.useState<Habit[]>([]);
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
   const router = useRouter();
 
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchHabits();
+    }, [])
+  );
+
   const fetchHabits = async () => {
-    const fetchedHabits = await db.select().from(habitTable).execute()
+    const fetchedHabits = await db?.select().from(habitTable).execute()
     setHabits(fetchedHabits);
   };
 
 
   const handleDeleteHabit = async (id: string) => {
-    await db.delete(habitTable).where(eq(habitTable.id, id)).execute();;
+    await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();;
     await fetchHabits();
     return;
   };
@@ -119,6 +130,11 @@ function ScreenContent() {
         className="native:overflow-hidden rounded-t-lg"
         estimatedItemSize={49}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (<View>
+          <Text className="text-lg">Hi There 👋</Text>
+          <Text className="text-sm">This example use sql.js on Web and expo/sqlite on native</Text>
+          <Text className="text-sm">If you change the schema, you need to run <Text className="text-sm font-mono text-muted-foreground bg-muted">bun migrate</Text></Text>
+        </View>)}
         ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
         renderItem={({ item }) => (
@@ -127,11 +143,15 @@ function ScreenContent() {
         keyExtractor={(item) => item.id}
         ListFooterComponent={<View className="py-4" />}
       />
-      <Link href="/create" asChild>
-        <Button>
-          <Text>Add</Text>
-        </Button>
-      </Link>
+      <View className="absolute bottom-10 right-8">
+        <Link href="/create" asChild>
+          <Pressable>
+            <View className="bg-primary justify-center rounded-full h-[45px] w-[45px]">
+              <Plus className="text-background self-center" />
+            </View>
+          </Pressable>
+        </Link>
+      </View>
 
     </View >
   );
