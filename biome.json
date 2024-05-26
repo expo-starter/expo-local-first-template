@@ -22,7 +22,8 @@
         "useExhaustiveDependencies": "off"
       },
       "style": {
-        "useSelfClosingElements": "off"
+        "useSelfClosingElements": "off",
+        "noUnusedTemplateLiteral": "off"
       }
     }
   },

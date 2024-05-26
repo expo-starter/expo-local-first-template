@@ -10,45 +10,39 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   scheme: "ltstarter",
   userInterfaceStyle: "dark",
   runtimeVersion: {
-    policy: "appVersion"
+    policy: "appVersion",
   },
   splash: {
     image: "./assets/images/splash.png",
     resizeMode: "contain",
-    backgroundColor: "#ffffff"
+    backgroundColor: "#ffffff",
   },
-  assetBundlePatterns: [
-    "**/*"
-  ],
+  assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "dev.launchtrack.base"
+    bundleIdentifier: "dev.launchtrack.base",
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
-      backgroundColor: "#ffffff"
+      backgroundColor: "#ffffff",
     },
-    package: "dev.launchtrack.starterbase"
+    package: "dev.launchtrack.starterbase",
   },
   web: {
     bundler: "metro",
     output: "single",
-    favicon: "./assets/images/favicon.png"
+    favicon: "./assets/images/favicon.png",
   },
-  plugins: [
-    [
-      "expo-router"
-    ]
-  ],
+  plugins: [["expo-router"]],
   experiments: {
     typedRoutes: true,
-    baseUrl: "/expo-starter"
+    baseUrl: "/expo-starter",
   },
   extra: {
     eas: {
-      projectId: ""
-    }
+      projectId: "",
+    },
   },
-  owner: "*"
+  owner: "*",
 });
