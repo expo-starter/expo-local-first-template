@@ -45,7 +45,7 @@ const List: React.FC<ListProps> = ({ children, className, ...props }) => {
 	});
 
 	return (
-		<View className={className || ""} {...props}>
+		<View className={className || ""} accessibilityRole="list" accessibilityLabel="List of items" {...props}>
 			{modifiedChildren}
 		</View>
 	);

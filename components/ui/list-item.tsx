@@ -3,7 +3,7 @@ import { Link } from "expo-router";
 import { LinkProps } from "expo-router/build/link/Link";
 import { ExpoRouter } from "expo-router/types/expo-router";
 import React, { ElementType } from "react";
-import { Pressable, PressableProps, Text, View, ViewProps, AccessibilityProps } from "react-native";
+import { Pressable, PressableProps, Text, View, ViewProps } from "react-native";
 
 import { Muted } from "./typography";
 
