@@ -12,9 +12,9 @@ import {
   type LayoutPosition,
   useControllableState,
   useRelativePosition,
-} from "~/components/primitives/hooks";
-import { Portal as RNPPortal } from "~/components/primitives/portal";
-import * as Slot from "~/components/primitives/slot";
+} from "@/components/primitives/hooks";
+import {Portal as RNPPortal} from "@/components/primitives/portal";
+import * as Slot from "@/components/primitives/slot";
 import type {
   ForceMountable,
   PositionedContentProps,
@@ -24,7 +24,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from "~/components/primitives/types";
+} from "@/components/primitives/types";
 import type {
   RootContext,
   SelectContentProps,
@@ -112,7 +112,7 @@ function useRootContext() {
 }
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
+  ({asChild, onPress: onPressProp, disabled = false, ...props}, ref) => {
     const triggerRef = React.useRef<View>(null);
     const {
       open,
@@ -135,7 +135,7 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
       triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
-        setTriggerPosition({ width, pageX, pageY: pageY, height });
+        setTriggerPosition({width, pageX, pageY: pageY, height});
       });
       onOpenChange(!open);
       onPressProp?.(ev);
@@ -159,8 +159,8 @@ const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
 Trigger.displayName = "TriggerNativeSelect";
 
 const Value = React.forwardRef<TextRef, SlottableTextProps & SelectValueProps>(
-  ({ asChild, placeholder, ...props }, ref) => {
-    const { value } = useRootContext();
+  ({asChild, placeholder, ...props}, ref) => {
+    const {value} = useRootContext();
     const Component = asChild ? Slot.Text : Text;
     return (
       <Component ref={ref} {...props}>
@@ -175,7 +175,7 @@ Value.displayName = "ValueNativeSelect";
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset.
  */
-function Portal({ forceMount, hostName, children }: SelectPortalProps) {
+function Portal({forceMount, hostName, children}: SelectPortalProps) {
   const value = useRootContext();
 
   if (!value.triggerPosition) {
@@ -189,7 +189,7 @@ function Portal({ forceMount, hostName, children }: SelectPortalProps) {
   }
 
   return (
-    <RNPPortal hostName={hostName} name={`${value.nativeID}_portal`}>
+    <RNPPortal hostName={hostName} name={`${ value.nativeID }_portal`}>
       <RootContext.Provider value={value}>{children}</RootContext.Provider>
     </RNPPortal>
   );
@@ -209,7 +209,7 @@ const Overlay = React.forwardRef<
     },
     ref,
   ) => {
-    const { open, onOpenChange, setTriggerPosition, setContentLayout } =
+    const {open, onOpenChange, setTriggerPosition, setContentLayout} =
       useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
@@ -362,13 +362,13 @@ const Item = React.forwardRef<
         onOpenChange(false);
       }
 
-      onValueChange({ value: itemValue, label });
+      onValueChange({value: itemValue, label});
       onPressProp?.(ev);
     }
 
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
-      <ItemContext.Provider value={{ itemValue, label }}>
+      <ItemContext.Provider value={{itemValue, label}}>
         <Component
           ref={ref}
           role="option"
@@ -403,8 +403,8 @@ function useItemContext() {
 const ItemText = React.forwardRef<
   TextRef,
   Omit<SlottableTextProps, "children">
->(({ asChild, ...props }, ref) => {
-  const { label } = useItemContext();
+>(({asChild, ...props}, ref) => {
+  const {label} = useItemContext();
 
   const Component = asChild ? Slot.Text : Text;
   return (
@@ -419,9 +419,9 @@ ItemText.displayName = "ItemTextNativeSelect";
 const ItemIndicator = React.forwardRef<
   ViewRef,
   SlottableViewProps & ForceMountable
->(({ asChild, forceMount, ...props }, ref) => {
-  const { itemValue } = useItemContext();
-  const { value } = useRootContext();
+>(({asChild, forceMount, ...props}, ref) => {
+  const {itemValue} = useItemContext();
+  const {value} = useRootContext();
 
   if (!forceMount) {
     if (value?.value !== itemValue) {
@@ -435,7 +435,7 @@ const ItemIndicator = React.forwardRef<
 ItemIndicator.displayName = "ItemIndicatorNativeSelect";
 
 const Group = React.forwardRef<ViewRef, SlottableViewProps>(
-  ({ asChild, ...props }, ref) => {
+  ({asChild, ...props}, ref) => {
     const Component = asChild ? Slot.View : View;
     return <Component ref={ref} role="group" {...props} />;
   },
@@ -444,7 +444,7 @@ const Group = React.forwardRef<ViewRef, SlottableViewProps>(
 Group.displayName = "GroupNativeSelect";
 
 const Label = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ asChild, ...props }, ref) => {
+  ({asChild, ...props}, ref) => {
     const Component = asChild ? Slot.Text : Text;
     return <Component ref={ref} {...props} />;
   },
@@ -455,7 +455,7 @@ Label.displayName = "LabelNativeSelect";
 const Separator = React.forwardRef<
   ViewRef,
   SlottableViewProps & SelectSeparatorProps
->(({ asChild, decorative, ...props }, ref) => {
+>(({asChild, decorative, ...props}, ref) => {
   const Component = asChild ? Slot.View : View;
   return (
     <Component
@@ -470,19 +470,19 @@ Separator.displayName = "SeparatorNativeSelect";
 
 const ScrollUpButton = ({
   children,
-}: { children?: React.ReactNode; className?: string }) => {
+}: {children?: React.ReactNode; className?: string}) => {
   return children;
 };
 
 const ScrollDownButton = ({
   children,
-}: { children?: React.ReactNode; className?: string }) => {
+}: {children?: React.ReactNode; className?: string}) => {
   return children;
 };
 
 const Viewport = ({
   children,
-}: { children?: React.ReactNode; className?: string }) => {
+}: {children?: React.ReactNode; className?: string}) => {
   return children;
 };
 
@@ -506,7 +506,7 @@ export {
   useRootContext,
 };
 
-export type { Option } from "./types";
+export type {Option} from "./types";
 
 function onStartShouldSetResponder() {
   return true;

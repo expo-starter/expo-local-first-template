@@ -1,14 +1,14 @@
 import * as React from "react";
-import { View } from "react-native";
-import * as Slot from "~/components/primitives/slot";
+import {View} from "react-native";
+import * as Slot from "@/components/primitives/slot";
 import type {
   SlottableViewProps,
   ViewRef,
-} from "~/components/primitives/types";
-import type { SeparatorRootProps } from "./types";
+} from "@/components/primitives/types";
+import type {SeparatorRootProps} from "./types";
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & SeparatorRootProps>(
-  ({ asChild, decorative, orientation = "horizontal", ...props }, ref) => {
+  ({asChild, decorative, orientation = "horizontal", ...props}, ref) => {
     const Component = asChild ? Slot.View : View;
     return (
       <Component
@@ -23,4 +23,4 @@ const Root = React.forwardRef<ViewRef, SlottableViewProps & SeparatorRootProps>(
 
 Root.displayName = "RootSeparator";
 
-export { Root };
+export {Root};

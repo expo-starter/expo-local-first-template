@@ -1,16 +1,16 @@
 import * as React from "react";
 import {
-  Image as RNImage,
+  type Image as RNImage,
   type ImageProps as RNImageProps,
   type ImageStyle as RNImageStyle,
-  Pressable as RNPressable,
+  type Pressable as RNPressable,
   type PressableProps as RNPressableProps,
   type PressableStateCallbackType,
   type StyleProp,
   StyleSheet,
-  Text as RNText,
+  type Text as RNText,
   type TextProps as RNTextProps,
-  View as RNView,
+  type View as RNView,
   type ViewProps as RNViewProps,
 } from "react-native";
 
@@ -18,7 +18,7 @@ const Pressable = React.forwardRef<
   React.ElementRef<typeof RNPressable>,
   RNPressableProps
 >((props, forwardedRef) => {
-  const { children, ...pressableSlotProps } = props;
+  const {children, ...pressableSlotProps} = props;
 
   if (!React.isValidElement(children)) {
     console.log("Slot.Pressable - Invalid asChild element", children);
@@ -40,7 +40,7 @@ Pressable.displayName = "SlotPressable";
 
 const View = React.forwardRef<React.ElementRef<typeof RNView>, RNViewProps>(
   (props, forwardedRef) => {
-    const { children, ...viewSlotProps } = props;
+    const {children, ...viewSlotProps} = props;
 
     if (!React.isValidElement(children)) {
       console.log("Slot.View - Invalid asChild element", children);
@@ -63,7 +63,7 @@ View.displayName = "SlotView";
 
 const Text = React.forwardRef<React.ElementRef<typeof RNText>, RNTextProps>(
   (props, forwardedRef) => {
-    const { children, ...textSlotProps } = props;
+    const {children, ...textSlotProps} = props;
 
     if (!React.isValidElement(children)) {
       console.log("Slot.Text - Invalid asChild element", children);
@@ -92,7 +92,7 @@ const Image = React.forwardRef<
   React.ElementRef<typeof RNImage>,
   ImageSlotProps
 >((props, forwardedRef) => {
-  const { children, ...imageSlotProps } = props;
+  const {children, ...imageSlotProps} = props;
 
   if (!React.isValidElement(children)) {
     console.log("Slot.Image - Invalid asChild element", children);
@@ -112,7 +112,7 @@ const Image = React.forwardRef<
 
 Image.displayName = "SlotImage";
 
-export { Image, Pressable, Text, View };
+export {Image, Pressable, Text, View};
 
 // This project uses code from WorkOS/Radix Primitives.
 // The code is licensed under the MIT License.
@@ -133,7 +133,7 @@ type AnyProps = Record<string, any>;
 
 function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
   // all child props should override
-  const overrideProps = { ...childProps };
+  const overrideProps = {...childProps};
 
   for (const propName in childProps) {
     const slotPropValue = slotProps[propName];
@@ -163,7 +163,7 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
     }
   }
 
-  return { ...slotProps, ...overrideProps };
+  return {...slotProps, ...overrideProps};
 }
 
 type PressableStyle = RNPressableProps["style"];
