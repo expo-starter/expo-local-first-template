@@ -1,4 +1,4 @@
-import type { ForceMountable } from "~/components/primitives/types";
+import type { ForceMountable } from "@/components/primitives/types";
 
 interface CheckboxRootProps {
   checked: boolean;

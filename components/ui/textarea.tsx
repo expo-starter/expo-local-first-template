@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TextInput } from "react-native";
-import { cn } from "~/lib/utils";
+import {TextInput} from "react-native";
+import {cn} from "@/lib/utils";
 
 const Textarea = React.forwardRef<
   React.ElementRef<typeof TextInput>,
@@ -36,4 +36,4 @@ const Textarea = React.forwardRef<
 
 Textarea.displayName = "Textarea";
 
-export { Textarea };
+export {Textarea};

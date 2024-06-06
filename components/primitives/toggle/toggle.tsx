@@ -1,11 +1,11 @@
 import * as React from "react";
-import { type GestureResponderEvent, Pressable } from "react-native";
-import * as Slot from "~/components/primitives/slot";
+import {type GestureResponderEvent, Pressable} from "react-native";
+import * as Slot from "@/components/primitives/slot";
 import type {
   PressableRef,
   SlottablePressableProps,
-} from "~/components/primitives/types";
-import type { ToggleRootProps } from "./types";
+} from "@/components/primitives/types";
+import type {ToggleRootProps} from "./types";
 
 const Root = React.forwardRef<
   PressableRef,
@@ -50,4 +50,4 @@ const Root = React.forwardRef<
 
 Root.displayName = "RootNativeToggle";
 
-export { Root };
+export {Root};

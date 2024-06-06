@@ -1,14 +1,14 @@
 import * as React from "react";
-import { Check } from "~/components/Icons";
-import * as CheckboxPrimitive from "~/components/primitives/checkbox";
+import {Check} from "@/components/Icons";
+import * as CheckboxPrimitive from "@/components/primitives/checkbox";
 
-import { Platform } from "react-native";
-import { cn } from "~/lib/utils";
+import {Platform} from "react-native";
+import {cn} from "@/lib/utils";
 
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
->(({ className, ...props }, ref) => {
+>(({className, ...props}, ref) => {
   return (
     <CheckboxPrimitive.Root
       ref={ref}
@@ -33,4 +33,4 @@ const Checkbox = React.forwardRef<
 });
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 
-export { Checkbox };
+export {Checkbox};

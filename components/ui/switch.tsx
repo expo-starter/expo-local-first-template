@@ -1,20 +1,20 @@
 import * as React from "react";
-import { Platform } from "react-native";
+import {Platform} from "react-native";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useDerivedValue,
   withTiming,
 } from "react-native-reanimated";
-import * as SwitchPrimitives from "~/components/primitives/switch";
-import { useColorScheme } from "~/lib/useColorScheme";
+import * as SwitchPrimitives from "@/components/primitives/switch";
+import {useColorScheme} from "@/lib/useColorScheme";
 
-import { cn } from "~/lib/utils";
+import {cn} from "@/lib/utils";
 
 const SwitchWeb = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
->(({ className, ...props }, ref) => (
+>(({className, ...props}, ref) => (
   <SwitchPrimitives.Root
     className={cn(
       "peer flex-row h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed",
@@ -50,8 +50,8 @@ const RGB_COLORS = {
 const SwitchNative = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
->(({ className, ...props }, ref) => {
-  const { colorScheme } = useColorScheme();
+>(({className, ...props}, ref) => {
+  const {colorScheme} = useColorScheme();
   const translateX = useDerivedValue(() => (props.checked ? 18 : 0));
   const animatedRootStyle = useAnimatedStyle(() => {
     return {
@@ -64,7 +64,7 @@ const SwitchNative = React.forwardRef<
   });
   const animatedThumbStyle = useAnimatedStyle(() => ({
     transform: [
-      { translateX: withTiming(translateX.value, { duration: 200 }) },
+      {translateX: withTiming(translateX.value, {duration: 200})},
     ],
   }));
   return (
@@ -101,4 +101,4 @@ const Switch = Platform.select({
   default: SwitchNative,
 });
 
-export { Switch };
+export {Switch};

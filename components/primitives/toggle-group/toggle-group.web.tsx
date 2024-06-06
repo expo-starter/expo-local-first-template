@@ -1,15 +1,15 @@
 import * as ToggleGroup from "@radix-ui/react-toggle-group";
 import * as React from "react";
-import { type GestureResponderEvent, Pressable, View } from "react-native";
-import * as Slot from "~/components/primitives/slot";
+import {type GestureResponderEvent, Pressable, View} from "react-native";
+import * as Slot from "@/components/primitives/slot";
 import type {
   PressableRef,
   SlottablePressableProps,
   SlottableViewProps,
   ViewRef,
-} from "~/components/primitives/types";
-import { ToggleGroupUtils } from "~/components/primitives/utils";
-import type { ToggleGroupItemProps, ToggleGroupRootProps } from "./types";
+} from "@/components/primitives/types";
+import {ToggleGroupUtils} from "@/components/primitives/utils";
+import type {ToggleGroupItemProps, ToggleGroupRootProps} from "./types";
 
 const ToggleGroupContext = React.createContext<ToggleGroupRootProps | null>(
   null,
@@ -92,7 +92,7 @@ const Item = React.forwardRef<
     },
     ref,
   ) => {
-    const { type, disabled, value, onValueChange } = useRootContext();
+    const {type, disabled, value, onValueChange} = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
       onPressProp?.(ev);
@@ -106,7 +106,7 @@ const Item = React.forwardRef<
 
     const Component = asChild ? Slot.Pressable : Pressable;
     return (
-      <ItemContext.Provider value={{ value: itemValue }}>
+      <ItemContext.Provider value={{value: itemValue}}>
         <ToggleGroup.Item value={itemValue} asChild>
           <Component
             ref={ref}
@@ -135,4 +135,4 @@ function useItemContext() {
 
 const utils = ToggleGroupUtils;
 
-export { Item, Root, useItemContext, useRootContext, utils };
+export {Item, Root, useItemContext, useRootContext, utils};

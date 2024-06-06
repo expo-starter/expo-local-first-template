@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { TextInput, View } from "react-native";
-import { Button } from "~/components/ui/button";
-import { Habit } from "./storage";
+import type React from "react";
+import {useState} from "react";
+import {TextInput, View} from "react-native";
+import {Button} from "@/components/ui/button";
+import type {Habit} from "./storage";
 
 interface HabitFormProps {
   onSubmit: (habit: Habit) => void;
@@ -48,9 +49,8 @@ export const HabitForm: React.FC<HabitFormProps> = ({
                 setCompletedDays([...completedDays, day]);
               }
             }}
-            className={`mr-2 mb-2 px-2 py-1 rounded-md ${
-              completedDays.includes(day) ? "green.500" : "gray.300"
-            }`}
+            className={`mr-2 mb-2 px-2 py-1 rounded-md ${ completedDays.includes(day) ? "green.500" : "gray.300"
+              }`}
           >
             {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][day]}
           </Button>

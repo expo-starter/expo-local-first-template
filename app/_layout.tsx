@@ -1,19 +1,18 @@
 import "./styles.css";
-import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Theme, ThemeProvider } from "@react-navigation/native";
-import { SplashScreen, Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import {type Theme, ThemeProvider} from "@react-navigation/native";
+import {SplashScreen, Stack} from "expo-router";
+import {StatusBar} from "expo-status-bar";
 import * as React from "react";
-import { Platform } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { ThemeToggle } from "~/components/ThemeToggle";
-import { PortalHost } from "~/components/primitives/portal";
-import { DatabaseProvider } from "~/db/provider";
-import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
-import { NAV_THEME } from "~/lib/constants";
-import { useColorScheme } from "~/lib/useColorScheme";
-
+import {Platform} from "react-native";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {ThemeToggle} from "@/components/ThemeToggle";
+import {PortalHost} from "@/components/primitives/portal";
+import {DatabaseProvider} from "@/db/provider";
+import {setAndroidNavigationBar} from "@/lib/android-navigation-bar";
+import {NAV_THEME} from "@/lib/constants";
+import {useColorScheme} from "@/lib/useColorScheme";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -30,15 +29,14 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "index",
 };
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
+  const {colorScheme, setColorScheme, isDarkColorScheme} = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
 
   React.useEffect(() => {
@@ -75,16 +73,24 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <DatabaseProvider>
-      <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <Stack>
-            <Stack.Screen name="index" />
-            <Stack.Screen name="create" options={{ presentation: "modal" }} />
-          </Stack>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
-      <PortalHost />
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <GestureHandlerRootView style={{flex: 1}}>
+          <BottomSheetModalProvider>
+            <Stack initialRouteName="index">
+              <Stack.Screen name="index" />
+              <Stack.Screen name="create" options={{presentation: "modal"}} />
+              <Stack.Screen
+                name="settings/index"
+                options={{
+                  headerBackTitleVisible: false,
+                  title: "Settings",
+                  headerShadowVisible: false,
+                }}
+              />
+            </Stack>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+        <PortalHost />
       </DatabaseProvider>
     </ThemeProvider>
   );

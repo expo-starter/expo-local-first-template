@@ -1,14 +1,14 @@
 import * as React from "react";
 import {
   BackHandler,
-  GestureResponderEvent,
+  type GestureResponderEvent,
   Pressable,
   Text,
   View,
 } from "react-native";
-import { useControllableState } from "~/components/primitives/hooks";
-import { Portal as RNPPortal } from "~/components/primitives/portal";
-import * as Slot from "~/components/primitives/slot";
+import {useControllableState} from "@/components/primitives/hooks";
+import {Portal as RNPPortal} from "@/components/primitives/portal";
+import * as Slot from "@/components/primitives/slot";
 import type {
   PressableRef,
   SlottablePressableProps,
@@ -16,7 +16,7 @@ import type {
   SlottableViewProps,
   TextRef,
   ViewRef,
-} from "~/components/primitives/types";
+} from "@/components/primitives/types";
 import type {
   DialogContentProps,
   DialogOverlayProps,
@@ -26,7 +26,7 @@ import type {
 } from "./types";
 
 const DialogContext = React.createContext<
-  (RootContext & { nativeID: string }) | null
+  (RootContext & {nativeID: string}) | null
 >(null);
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & DialogRootProps>(
@@ -75,8 +75,8 @@ function useRootContext() {
 }
 
 const Trigger = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { open, onOpenChange } = useRootContext();
+  ({asChild, onPress: onPressProp, disabled = false, ...props}, ref) => {
+    const {open, onOpenChange} = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
@@ -104,7 +104,7 @@ Trigger.displayName = "TriggerNativeDialog";
 /**
  * @warning when using a custom `<PortalHost />`, you might have to adjust the Content's sideOffset to account for nav elements like headers.
  */
-function Portal({ forceMount, hostName, children }: DialogPortalProps) {
+function Portal({forceMount, hostName, children}: DialogPortalProps) {
   const value = useRootContext();
 
   if (!forceMount) {
@@ -114,7 +114,7 @@ function Portal({ forceMount, hostName, children }: DialogPortalProps) {
   }
 
   return (
-    <RNPPortal hostName={hostName} name={`${value.nativeID}_portal`}>
+    <RNPPortal hostName={hostName} name={`${ value.nativeID }_portal`}>
       <DialogContext.Provider value={value}>{children}</DialogContext.Provider>
     </RNPPortal>
   );
@@ -134,7 +134,7 @@ const Overlay = React.forwardRef<
     },
     ref,
   ) => {
-    const { open, onOpenChange } = useRootContext();
+    const {open, onOpenChange} = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
       if (closeOnPress) {
@@ -159,8 +159,8 @@ Overlay.displayName = "OverlayNativeDialog";
 const Content = React.forwardRef<
   ViewRef,
   SlottableViewProps & DialogContentProps
->(({ asChild, forceMount, ...props }, ref) => {
-  const { open, nativeID, onOpenChange } = useRootContext();
+>(({asChild, forceMount, ...props}, ref) => {
+  const {open, nativeID, onOpenChange} = useRootContext();
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -188,8 +188,8 @@ const Content = React.forwardRef<
       ref={ref}
       role="dialog"
       nativeID={nativeID}
-      aria-labelledby={`${nativeID}_label`}
-      aria-describedby={`${nativeID}_desc`}
+      aria-labelledby={`${ nativeID }_label`}
+      aria-describedby={`${ nativeID }_desc`}
       aria-modal={true}
       onStartShouldSetResponder={onStartShouldSetResponder}
       {...props}
@@ -200,8 +200,8 @@ const Content = React.forwardRef<
 Content.displayName = "ContentNativeDialog";
 
 const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
-  ({ asChild, onPress: onPressProp, disabled = false, ...props }, ref) => {
-    const { onOpenChange } = useRootContext();
+  ({asChild, onPress: onPressProp, disabled = false, ...props}, ref) => {
+    const {onOpenChange} = useRootContext();
 
     function onPress(ev: GestureResponderEvent) {
       if (disabled) return;
@@ -226,9 +226,9 @@ const Close = React.forwardRef<PressableRef, SlottablePressableProps>(
 Close.displayName = "CloseNativeDialog";
 
 const Title = React.forwardRef<TextRef, SlottableTextProps>((props, ref) => {
-  const { nativeID } = useRootContext();
+  const {nativeID} = useRootContext();
   return (
-    <Text ref={ref} role="heading" nativeID={`${nativeID}_label`} {...props} />
+    <Text ref={ref} role="heading" nativeID={`${ nativeID }_label`} {...props} />
   );
 });
 
@@ -236,8 +236,8 @@ Title.displayName = "TitleNativeDialog";
 
 const Description = React.forwardRef<TextRef, SlottableTextProps>(
   (props, ref) => {
-    const { nativeID } = useRootContext();
-    return <Text ref={ref} nativeID={`${nativeID}_desc`} {...props} />;
+    const {nativeID} = useRootContext();
+    return <Text ref={ref} nativeID={`${ nativeID }_desc`} {...props} />;
   },
 );
 

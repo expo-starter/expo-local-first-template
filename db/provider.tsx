@@ -1,16 +1,16 @@
-import { ExpoSQLiteDatabase } from "drizzle-orm/expo-sqlite";
-import { SQLJsDatabase } from "drizzle-orm/sql-js";
-import React, { PropsWithChildren, useContext, useEffect, useState } from "react";
-import { initialize } from "./drizzle";
+import type {ExpoSQLiteDatabase} from "drizzle-orm/expo-sqlite";
+import type {SQLJsDatabase} from "drizzle-orm/sql-js";
+import React, {type PropsWithChildren, useContext, useEffect, useState} from "react";
+import {initialize} from "./drizzle";
 
-type ContextType = { db: SQLJsDatabase | ExpoSQLiteDatabase | null }
+type ContextType = {db: SQLJsDatabase | ExpoSQLiteDatabase | null}
 
-export const DatabaseContext = React.createContext<ContextType>({ db: null });
+export const DatabaseContext = React.createContext<ContextType>({db: null});
 
 export const useDatabase = () => useContext(DatabaseContext);
 
 
-export function DatabaseProvider({ children }: PropsWithChildren) {
+export function DatabaseProvider({children}: PropsWithChildren) {
   const [db, setDb] = useState<SQLJsDatabase | ExpoSQLiteDatabase | null>(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export function DatabaseProvider({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <DatabaseContext.Provider value={{ db }}>
+    <DatabaseContext.Provider value={{db}}>
       {children}
     </DatabaseContext.Provider>
   );

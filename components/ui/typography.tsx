@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Platform, Text as RNText } from "react-native";
-import * as Slot from "~/components/primitives/slot";
-import { SlottableTextProps, TextRef } from "~/components/primitives/types";
-import { cn } from "~/lib/utils";
+import {Platform, Text as RNText} from "react-native";
+import * as Slot from "@/components/primitives/slot";
+import type {SlottableTextProps, TextRef} from "@/components/primitives/types";
+import {cn} from "@/lib/utils";
 
 const H1 = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -25,7 +25,7 @@ const H1 = React.forwardRef<TextRef, SlottableTextProps>(
 H1.displayName = "H1";
 
 const H2 = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -45,7 +45,7 @@ const H2 = React.forwardRef<TextRef, SlottableTextProps>(
 H2.displayName = "H2";
 
 const H3 = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -65,7 +65,7 @@ const H3 = React.forwardRef<TextRef, SlottableTextProps>(
 H3.displayName = "H3";
 
 const H4 = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -85,7 +85,7 @@ const H4 = React.forwardRef<TextRef, SlottableTextProps>(
 H4.displayName = "H4";
 
 const P = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -99,7 +99,7 @@ const P = React.forwardRef<TextRef, SlottableTextProps>(
 P.displayName = "P";
 
 const BlockQuote = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -119,7 +119,7 @@ const BlockQuote = React.forwardRef<TextRef, SlottableTextProps>(
 BlockQuote.displayName = "BlockQuote";
 
 const Code = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -139,7 +139,7 @@ const Code = React.forwardRef<TextRef, SlottableTextProps>(
 Code.displayName = "Code";
 
 const Lead = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -157,7 +157,7 @@ const Lead = React.forwardRef<TextRef, SlottableTextProps>(
 Lead.displayName = "Lead";
 
 const Large = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -175,7 +175,7 @@ const Large = React.forwardRef<TextRef, SlottableTextProps>(
 Large.displayName = "Large";
 
 const Small = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -193,7 +193,7 @@ const Small = React.forwardRef<TextRef, SlottableTextProps>(
 Small.displayName = "Small";
 
 const Muted = React.forwardRef<TextRef, SlottableTextProps>(
-  ({ className, asChild = false, ...props }, ref) => {
+  ({className, asChild = false, ...props}, ref) => {
     const Component = asChild ? Slot.Text : RNText;
     return (
       <Component
@@ -210,4 +210,4 @@ const Muted = React.forwardRef<TextRef, SlottableTextProps>(
 
 Muted.displayName = "Muted";
 
-export { BlockQuote, Code, H1, H2, H3, H4, Large, Lead, Muted, P, Small };
+export {BlockQuote, Code, H1, H2, H3, H4, Large, Lead, Muted, P, Small};

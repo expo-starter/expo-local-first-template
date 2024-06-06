@@ -1,18 +1,18 @@
 import * as React from "react";
 import {
   Image as RNImage,
-  ImageErrorEventData,
-  ImageLoadEventData,
-  NativeSyntheticEvent,
+  type ImageErrorEventData,
+  type ImageLoadEventData,
+  type NativeSyntheticEvent,
   View,
 } from "react-native";
-import * as Slot from "~/components/primitives/slot";
-import {
+import * as Slot from "@/components/primitives/slot";
+import type {
   ComponentPropsWithAsChild,
   SlottableViewProps,
   ViewRef,
-} from "~/components/primitives/types";
-import { AvatarImageProps, AvatarRootProps } from "./types";
+} from "@/components/primitives/types";
+import type {AvatarImageProps, AvatarRootProps} from "./types";
 
 type AvatarState = "loading" | "error" | "loaded";
 
@@ -24,11 +24,11 @@ interface IRootContext extends AvatarRootProps {
 const RootContext = React.createContext<IRootContext | null>(null);
 
 const Root = React.forwardRef<ViewRef, SlottableViewProps & AvatarRootProps>(
-  ({ asChild, alt, ...viewProps }, ref) => {
+  ({asChild, alt, ...viewProps}, ref) => {
     const [status, setStatus] = React.useState<AvatarState>("loading");
     const Component = asChild ? Slot.View : View;
     return (
-      <RootContext.Provider value={{ alt, status, setStatus }}>
+      <RootContext.Provider value={{alt, status, setStatus}}>
         <Component ref={ref} {...viewProps} />
       </RootContext.Provider>
     );
@@ -61,7 +61,7 @@ const Image = React.forwardRef<
     },
     ref,
   ) => {
-    const { alt, setStatus, status } = useRootContext();
+    const {alt, setStatus, status} = useRootContext();
 
     const onLoad = React.useCallback(
       (e: NativeSyntheticEvent<ImageLoadEventData>) => {
@@ -101,8 +101,8 @@ const Image = React.forwardRef<
 Image.displayName = "ImageAvatar";
 
 const Fallback = React.forwardRef<ViewRef, SlottableViewProps>(
-  ({ asChild, ...props }, ref) => {
-    const { alt, status } = useRootContext();
+  ({asChild, ...props}, ref) => {
+    const {alt, status} = useRootContext();
 
     if (status !== "error") {
       return null;
@@ -114,4 +114,4 @@ const Fallback = React.forwardRef<ViewRef, SlottableViewProps>(
 
 Fallback.displayName = "FallbackAvatar";
 
-export { Fallback, Image, Root };
+export {Fallback, Image, Root};

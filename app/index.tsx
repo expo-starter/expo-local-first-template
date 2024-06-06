@@ -1,12 +1,12 @@
-import { useScrollToTop } from "@react-navigation/native";
-import { FlashList } from "@shopify/flash-list";
-import { eq } from "drizzle-orm";
-import { Link, Stack, useFocusEffect, useRouter } from "expo-router";
+import {useScrollToTop} from "@react-navigation/native";
+import {FlashList} from "@shopify/flash-list";
+import {eq} from "drizzle-orm";
+import {Link, Stack, useFocusEffect, useRouter} from "expo-router";
 import * as React from "react";
-import { FlatList, Pressable, View } from "react-native";
-import { ThemeToggle } from "~/components/ThemeToggle";
-import { Badge } from "~/components/ui/badge";
-import { Button } from "~/components/ui/button";
+import {FlatList, Pressable, View} from "react-native";
+import {ThemeToggle} from "@/components/ThemeToggle";
+import {Badge} from "@/components/ui/badge";
+import {Button} from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -14,13 +14,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import { Progress } from "~/components/ui/progress";
-import { Text } from "~/components/ui/text";
-import { Habit, habitTable } from "~/db/schema";
-import { Plus } from "~/components/Icons";
-import { useMigrationHelper } from "~/db/drizzle";
-import { useDatabase } from "~/db/provider";
+} from "@/components/ui/card";
+import {Progress} from "@/components/ui/progress";
+import {Text} from "@/components/ui/text";
+import {type Habit, habitTable} from "@/db/schema";
+import {Plus, PlusCircle} from "@/components/Icons";
+import {useMigrationHelper} from "@/db/drizzle";
+import {useDatabase} from "@/db/provider";
+import Settings from "./settings";
+import {SettingsIcon} from "lucide-react-native";
 
 
 type HabitProps = {
@@ -28,7 +30,7 @@ type HabitProps = {
   onDelete?: () => void;
 };
 
-const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
+const HabitCard: React.FC<HabitProps> = ({habit, onDelete}) => {
   const getCompletedDayCount = () => {
     // return habit.completedDays?.length || 0;
   };
@@ -51,7 +53,11 @@ const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
       <CardContent />
       <CardFooter className="flex-col gap-3 flex-1">
         <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
-        <Button variant="outline" className="shadow shadow-foreground/5" onPress={onDelete}>
+        <Button
+          variant="outline"
+          className="shadow shadow-foreground/5"
+          onPress={onDelete}
+        >
           <Text>Delete</Text>
         </Button>
       </CardFooter>
@@ -59,10 +65,8 @@ const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
   );
 };
 
-
 export default function Screen() {
-
-  const { success, error } = useMigrationHelper();
+  const {success, error} = useMigrationHelper();
 
   if (error) {
     return (
@@ -79,13 +83,10 @@ export default function Screen() {
     );
   }
 
-
-  return <ScreenContent />
+  return <ScreenContent />;
 }
 
-
 function ScreenContent() {
-
   const {db} = useDatabase();
 
   const [habits, setHabits] = React.useState<Habit[]>([]);
@@ -97,17 +98,16 @@ function ScreenContent() {
   useFocusEffect(
     React.useCallback(() => {
       fetchHabits();
-    }, [])
+    }, []),
   );
 
   const fetchHabits = async () => {
-    const fetchedHabits = await db?.select().from(habitTable).execute()
+    const fetchedHabits = await db?.select().from(habitTable).execute();
     setHabits(fetchedHabits ?? []);
   };
 
-
   const handleDeleteHabit = async (id: string) => {
-    await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();;
+    await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();
     await fetchHabits();
     return;
   };
@@ -116,13 +116,13 @@ function ScreenContent() {
     fetchHabits();
   }, []);
 
-
   return (
     <View className="flex-1 gap-5 p-6 bg-secondary/30">
       <Stack.Screen
         options={{
           title: "Habits",
           headerRight: () => <ThemeToggle />,
+          headerLeft: () => <Button variant="link" onPress={() => router.navigate("settings")}><SettingsIcon /></Button>
         }}
       />
       <FlashList
@@ -130,14 +130,23 @@ function ScreenContent() {
         className="native:overflow-hidden rounded-t-lg"
         estimatedItemSize={49}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={() => (<View>
-          <Text className="text-lg">Hi There 👋</Text>
-          <Text className="text-sm">This example use sql.js on Web and expo/sqlite on native</Text>
-          <Text className="text-sm">If you change the schema, you need to run <Text className="text-sm font-mono text-muted-foreground bg-muted">bun migrate</Text></Text>
-        </View>)}
+        ListEmptyComponent={() => (
+          <View>
+            <Text className="text-lg">Hi There 👋</Text>
+            <Text className="text-sm">
+              This example use sql.js on Web and expo/sqlite on native
+            </Text>
+            <Text className="text-sm">
+              If you change the schema, you need to run{" "}
+              <Text className="text-sm font-mono text-muted-foreground bg-muted">
+                bun migrate
+              </Text>
+            </Text>
+          </View>
+        )}
         ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
-        renderItem={({ item }) => (
+        renderItem={({item}) => (
           <HabitCard habit={item} onDelete={() => handleDeleteHabit(item.id)} />
         )}
         keyExtractor={(item) => item.id}
@@ -153,6 +162,6 @@ function ScreenContent() {
         </Link>
       </View>
 
-    </View >
+    </View>
   );
 }
