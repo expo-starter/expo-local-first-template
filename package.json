@@ -6,7 +6,7 @@
   "repository": "git@github.com:launchtrack/expo-starter.git",
   "license": "Apache-2.0",
   "scripts": {
-    "dev": "expo start -c --ios",
+    "dev": "expo start --dev-client --clear",
     "dev:web": "expo start -c --web",
     "dev:android": "expo start -c --android",
     "android": "expo run:android",

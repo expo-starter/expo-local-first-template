@@ -16,6 +16,7 @@ import {
   Calendar,
   CalendarDays,
   Check,
+  Settings,
   CheckSquare,
   ChevronDown,
   ChevronLeft,
@@ -38,7 +39,7 @@ import {
   LayoutPanelLeft,
   LifeBuoy,
   LogOut,
-  LucideIcon,
+  type LucideIcon,
   Mail,
   MenuSquare,
   MessageSquare,
@@ -55,7 +56,7 @@ import {
   Users,
   X,
 } from "lucide-react-native";
-import { cssInterop } from "nativewind";
+import {cssInterop} from "nativewind";
 function interopIcon(icon: LucideIcon) {
   cssInterop(icon, {
     className: {
@@ -67,7 +68,7 @@ function interopIcon(icon: LucideIcon) {
     },
   });
 }
-
+interopIcon(Settings);
 interopIcon(Sun);
 interopIcon(MoonStar);
 interopIcon(AlignJustify);
@@ -108,7 +109,6 @@ interopIcon(ChevronRight);
 interopIcon(ChevronLeft);
 interopIcon(ChevronUp);
 interopIcon(Cloud);
-interopIcon(Github);
 interopIcon(LifeBuoy);
 interopIcon(LogOut);
 interopIcon(Mail);
@@ -156,13 +156,13 @@ export {
   Ear,
   Fan,
   GalleryHorizontal,
-  Github,
   Info,
   Italic,
   Lamp,
   LayoutPanelLeft,
   LifeBuoy,
   LogOut,
+  Settings,
   Mail,
   MenuSquare,
   MessageSquare,

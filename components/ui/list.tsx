@@ -1,13 +1,13 @@
 import React from "react";
-import { View, ViewProps } from "react-native";
+import {View, type ViewProps} from "react-native";
 
-import { cn } from "~/lib/utils";
+import {cn} from "@/lib/utils";
 
 interface ListHeaderProps extends ViewProps {
 	children: React.ReactNode;
 }
 
-export const ListHeader: React.FC<ListHeaderProps> = ({ children, className, ...props }) => {
+export const ListHeader: React.FC<ListHeaderProps> = ({children, className, ...props}) => {
 	return (
 		<View className={cn("py-1.5 px-4", className)} {...props}>
 			{children}
@@ -17,7 +17,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({ children, className, ...
 
 interface ListProps extends ViewProps { }
 
-const List: React.FC<ListProps> = ({ children, className, ...props }) => {
+const List: React.FC<ListProps> = ({children, className, ...props}) => {
 	const childrenArray = React.Children.toArray(children);
 	const modifiedChildren = childrenArray.map((child, index) => {
 		if (!React.isValidElement(child)) {
@@ -50,5 +50,6 @@ const List: React.FC<ListProps> = ({ children, className, ...props }) => {
 		</View>
 	);
 };
+
 
 export default List;

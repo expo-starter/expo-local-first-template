@@ -1,6 +1,6 @@
-import React from "react";
-import { View } from "react-native";
-import { Button } from "~/components/ui/button";
+import type React from "react";
+import {View} from "react-native";
+import {Button} from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,22 +8,17 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import { Progress } from "~/components/ui/progress";
-import { Text } from "~/components/ui/text";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "~/components/ui/tooltip";
-import { Habit } from "./storage";
+} from "@/components/ui/card";
+import {Progress} from "@/components/ui/progress";
+import {Text} from "@/components/ui/text";
+import type {Habit} from "./storage";
 
 interface HabitProps {
   habit: Habit;
   onDelete?: () => void;
 }
 
-export const HabitCard: React.FC<HabitProps> = ({ habit, onDelete }) => {
+export const HabitCard: React.FC<HabitProps> = ({habit, onDelete}) => {
   const getCompletedDayCount = () => {
     return habit.completedDays.length;
   };
