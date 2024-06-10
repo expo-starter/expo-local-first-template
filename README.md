@@ -7,7 +7,7 @@
 Say goodbye to time-consuming chores such implementing libraries, and developing reusable components. Our project boilerplate helps removing repetitive tasks when initiating a project from zero. It includes only the most frequently utilized libraries, so you can hit the ground running with a fully configured setup.
 
 
-[Web App Demo](https://launchtrack.github.io/expo-starter/)
+[Web App Demo](https://expo-starter.github.io/expo-template/)
 
 ## 📚 What's inside
 
@@ -27,6 +27,7 @@ New :
 - 💽 Full integrated with [DrizzleORM](https://drizzle.dev)
 
 In-progress :
+- Live query with [DrizzleORM](https://drizzle.dev)
 - [Cloudflare D1](https://developers.cloudflare.com/d1/) for data persistance on Web as well as offline mode
 
 ### Requirements
