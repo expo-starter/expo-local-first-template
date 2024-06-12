@@ -7,14 +7,7 @@ import {FlatList, Pressable, View} from "react-native";
 import {ThemeToggle} from "@/components/ThemeToggle";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+
 import {Progress} from "@/components/ui/progress";
 import {Text} from "@/components/ui/text";
 import {type Habit, habitTable} from "@/db/schema";
@@ -24,46 +17,13 @@ import {useDatabase} from "@/db/provider";
 import Settings from "./settings";
 import {SettingsIcon} from "lucide-react-native";
 
+import {useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {HabitCard} from "@/components/habit";
 
-type HabitProps = {
-  habit: Habit;
-  onDelete?: () => void;
-};
 
-const HabitCard: React.FC<HabitProps> = ({habit, onDelete}) => {
-  const getCompletedDayCount = () => {
-    // return habit.completedDays?.length || 0;
-  };
-
-  return (
-    <Card className="w-full rounded-2xl">
-      <CardHeader>
-        <CardTitle className="pb-2">
-          {habit.name}
-          <Badge variant="outline">
-            <Text>Morning</Text>
-          </Badge>
-        </CardTitle>
-        <View className="flex-row">
-          <CardDescription className="text-base font-semibold">
-            {habit.description}
-          </CardDescription>
-        </View>
-      </CardHeader>
-      <CardContent />
-      <CardFooter className="flex-col gap-3 flex-1">
-        <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
-        <Button
-          variant="outline"
-          className="shadow shadow-foreground/5"
-          onPress={onDelete}
-        >
-          <Text>Delete</Text>
-        </Button>
-      </CardFooter>
-    </Card>
-  );
-};
 
 export default function Screen() {
   const {success, error} = useMigrationHelper();
@@ -85,7 +45,16 @@ export default function Screen() {
 
   return <ScreenContent />;
 }
-
+const HabitCategories = [
+  {value: "health", label: "Health And Wellness"},
+  {value: "personal-development", label: "Personal Development"},
+  {value: "social-and-relationshipts", label: "Social And Relationships"},
+  {value: "productivity", label: "Productivity"},
+  {value: "creativity", label: "Creativity"},
+  {value: "mindfulness", label: "Mindfulness"},
+  {value: "financial", label: "Financial"},
+  {value: "leisure", label: "Leisure"},
+]
 function ScreenContent() {
   const {db} = useDatabase();
 
@@ -100,7 +69,21 @@ function ScreenContent() {
       fetchHabits();
     }, []),
   );
-
+  const formSchema = z.object({
+    category: z.object(
+      {value: z.string(), label: z.string()},
+      {
+        invalid_type_error: 'Please select a category',
+      }
+    ),
+  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    values: {
+      category: {value: "health", label: "Health And Wellness"}
+    }
+  }
+  )
   const fetchHabits = async () => {
     const fetchedHabits = await db?.select().from(habitTable).execute();
     setHabits(fetchedHabits ?? []);
@@ -147,7 +130,7 @@ function ScreenContent() {
         ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
         renderItem={({item}) => (
-          <HabitCard habit={item} onDelete={() => handleDeleteHabit(item.id)} />
+          <HabitCard habit={item} onPress={() => router.replace(`/habits/${ item.id }`)} />
         )}
         keyExtractor={(item) => item.id}
         ListFooterComponent={<View className="py-4" />}

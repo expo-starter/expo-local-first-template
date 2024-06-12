@@ -1,6 +1,8 @@
 import type React from "react";
-import {View} from "react-native";
+import {View, Pressable} from "react-native";
 import {Button} from "@/components/ui/button";
+import {Text} from "@/components/ui/text";
+import type {Habit} from "@/lib/storage";
 import {
   Card,
   CardContent,
@@ -9,31 +11,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {Progress} from "@/components/ui/progress";
-import {Text} from "@/components/ui/text";
-import type {Habit} from "./storage";
-
-interface HabitProps {
+import {Badge} from "../ui/badge";
+import {Progress} from "../ui/progress";
+type HabitProps = {
   habit: Habit;
-  onDelete?: () => void;
-}
+  onPress: () => void;
+};
 
-export const HabitCard: React.FC<HabitProps> = ({habit, onDelete}) => {
-  const getCompletedDayCount = () => {
-    return habit.completedDays.length;
-  };
-
+export const HabitCard: React.FC<HabitProps> = ({habit, onPress}) => {
   return (
-    <View className={"bg-white p-4 rounded-md shadow-md"}>
-      <Text className={"text-xl font-bold mb-2"}>{habit.name}</Text>
-      <Text className={"text-gray-500"}>
-        Completed: {getCompletedDayCount()} days
-      </Text>
-      {onDelete && (
-        <Button onPress={onDelete} className={"mt-2"}>
-          Delete
-        </Button>
-      )}
-    </View>
+    <Pressable onPress={onPress}>
+      <Card className="rounded-2xl">
+        <CardHeader>
+          <View className="flex-row gap-4 items-center">
+            <CardTitle className="pb-2">
+              {habit.name}
+            </CardTitle>
+            <Badge variant="outline">
+              <Text >{habit.category}</Text>
+            </Badge>
+          </View>
+
+          <View className="flex-col">
+            <CardDescription className="text-base font-semibold">
+              {habit.description}
+            </CardDescription>
+          </View>
+        </CardHeader>
+        <CardContent />
+        <CardFooter className="flex-col gap-3 flex-1">
+          <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
+        </CardFooter>
+      </Card>
+    </Pressable >
+
   );
 };

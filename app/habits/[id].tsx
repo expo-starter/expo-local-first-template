@@ -1,11 +1,28 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createInsertSchema} from "drizzle-zod";
-import {Stack, useRouter} from "expo-router";
+import {
+  Stack,
+  useFocusEffect,
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
 import * as React from "react";
 import {useForm} from "react-hook-form";
-import {Alert, ScrollView, View} from "react-native";
+import {Alert, Pressable, ScrollView, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import * as z from "zod";
+import {eq} from "drizzle-orm";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import {Button} from "@/components/ui/button";
 import {
   Form,
@@ -15,6 +32,7 @@ import {
   FormInput,
   FormRadioGroup,
   FormSelect,
+  FormElement,
   FormSwitch,
   FormTextarea,
 } from "@/components/ui/form";
@@ -31,6 +49,8 @@ import {Text} from "@/components/ui/text";
 import {useDatabase} from "@/db/provider";
 import {habitTable} from "@/db/schema";
 import {cn} from "@/lib/utils";
+import {ChevronLeft} from "lucide-react-native";
+import type {Habit} from "@/lib/storage";
 
 const HabitCategories = [
   {value: "health", label: "Health And Wellness"},
@@ -51,22 +71,23 @@ const HabitDurations = [
 ];
 
 const formSchema = createInsertSchema(habitTable, {
-  name: (schema) => schema.name.min(4, {
-    message: "Please enter a habit name.",
-  }),
-  description: (schema) => schema.description.min(1, {
-    message: "We need to know.",
-  }),
+  name: (schema) =>
+    schema.name.min(4, {
+      message: "Please enter a habit name.",
+    }),
+  description: (schema) =>
+    schema.description.min(1, {
+      message: "We need to know.",
+    }),
   category: z.object(
     {value: z.string(), label: z.string()},
     {
-      invalid_type_error: "Please select a favorite email.",
+      invalid_type_error: "Please select category",
     },
   ),
-  duration: z.number().int().positive(),
+  duration: z.union([z.string(), z.number()]),
   enableNotifications: z.boolean(),
 });
-
 
 // TODO: refactor to use UI components
 
@@ -75,15 +96,42 @@ export default function FormScreen() {
   const router = useRouter();
   const scrollRef = React.useRef<ScrollView>(null);
   const insets = useSafeAreaInsets();
+  const [habit, setHabit] = React.useState<Habit>();
+  const {id} = useLocalSearchParams<{id: string}>();
+
   const [selectTriggerWidth, setSelectTriggerWidth] = React.useState(0);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchHabitById();
+    }, []),
+  );
+  const defaultValues = React.useMemo(() => {
+    if (habit) {
+      return {
+        name: habit.name,
+        description: habit.description,
+        category: HabitCategories.find((cat) => cat.value === habit.category),
+        duration: habit.duration,
+        enableNotifications: habit?.enableNotifications,
+      }
+    }
+    return {
       name: "",
       description: "",
-      duration: 5,
+      duration: {
+        label: "", value: ""
+      },
+      category: {
+        label: "", value: ""
+      },
       enableNotifications: false,
-    },
+    }
+  }, [habit])
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: defaultValues,
+    values: defaultValues
   });
 
   const contentInsets = {
@@ -92,17 +140,44 @@ export default function FormScreen() {
     left: 12,
     right: 12,
   };
+  const fetchHabitById = async () => {
+    const fetchedHabit = await db
+      ?.select()
+      .from(habitTable)
+      .where(eq(habitTable.id, id as string))
+      .execute();
+    if (fetchedHabit) {
+      setHabit(fetchedHabit[0])
+    }
+  };
+  const handleDeleteHabit = async () => {
+    // Are you sure you want to delete this Habit ?
+    try {
+      await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();
+      router.replace("/")
+    } catch (error) {
+      console.error("error", error)
+    }
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  };
 
-    await db?.insert(habitTable).values({
-      ...values,
-      category: values.category.value,
-    }).execute();
+  async function handleSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await db?.update(habitTable).set({
+        name: values.name,
+        description: values.description,
+        duration: Number(values.duration),
+        category: values.category.value,
+        enableNotifications: values.enableNotifications,
+      }).where(eq(habitTable.id, id as string))
+        .execute();
 
-    router.replace("/");
+      router.replace("/");
+    } catch (error) {
+      console.error("error", error)
+    }
+
   }
-
   return (
     <ScrollView
       ref={scrollRef}
@@ -113,149 +188,181 @@ export default function FormScreen() {
     >
       <Stack.Screen
         options={{
-          title: "New Habit",
+          title: "Habit",
+          headerLeft: () => <Pressable onPress={() => router.replace("/")}><ChevronLeft width={30} height={30} /></Pressable>
         }}
       />
-      <Form {...form}>
-        <View className="gap-7">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({field}) => (
-              <FormInput
-                label="Name"
-                placeholder="habit name"
-                description="This will help you remind."
-                autoCapitalize="none"
-                {...field}
-              />
-            )}
-          />
+      <FormElement
+        onSubmit={handleSubmit} >
 
-          <FormField
-            control={form.control}
-            name="description"
-            render={({field}) => (
-              <FormTextarea
-                label="Description"
-                placeholder="Habit for ..."
-                description="habit description"
-                {...field}
-              />
-            )}
-          />
+        <Form {...form}>
+          <View className="gap-7">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({field}) => (
+                <FormInput
+                  label="Name"
+                  className="text-foreground"
 
-          <FormField
-            control={form.control}
-            name="category"
-            render={({field}) => (
-              <FormSelect
-                label="Category"
-                description="Select on of the habit description"
-                {...field}
-              >
-                <SelectTrigger
-                  onLayout={(ev) => {
-                    setSelectTriggerWidth(ev.nativeEvent.layout.width);
-                  }}
-                >
-                  <SelectValue
-                    className={cn(
-                      "text-sm native:text-lg",
-                      field.value ? "text-foreground" : "text-muted-foreground",
-                    )}
-                    placeholder="Select a habit category"
-                  />
-                </SelectTrigger>
-                <SelectContent
-                  insets={contentInsets}
-                  style={{width: selectTriggerWidth}}
-                >
-                  <SelectGroup>
-                    {HabitCategories.map((cat) => (
-                      <SelectItem
-                        key={cat.value}
-                        label={cat.label}
-                        value={cat.value}
-                      >
-                        <Text>{cat.label}</Text>
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </FormSelect>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="duration"
-            render={({field}) => {
-              function onLabelPress(value: number) {
-                return () => {
-                  form.setValue("duration", value);
-                };
-              }
-              return (
-                <FormRadioGroup
-                  label="Duration"
-                  description="Select your duration."
-                  className="gap-4"
+                  placeholder="habit name"
+                  description="This will help you remind."
+                  autoCapitalize="none"
                   {...field}
-                  value={field.value.toString()}
-                >
-                  {HabitDurations.map((item) => {
-                    return (
-                      <View
-                        key={item.value}
-                        className={"flex-row gap-2 items-center"}
-                      >
-                        <RadioGroupItem
-                          aria-labelledby={`label-for-${ item.label }`}
-                          value={item.value.toString()}
-                        />
-                        <Label
-                          nativeID={`label-for-${ item.label }`}
-                          className="capitalize"
-                          onPress={onLabelPress(item.value)}
-                        >
-                          {item.label}
-                        </Label>
-                      </View>
-                    );
-                  })}
-                </FormRadioGroup>
-              );
-            }}
-          />
+                />
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="enableNotifications"
-            render={({field}) => (
-              <FormSwitch
-                label="Enable reminder"
-                description="We will send you notification reminder."
-                {...field}
-              />
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({field}) => (
+                <FormTextarea
+                  label="Description"
 
-          <Button onPress={form.handleSubmit(onSubmit)}>
-            <Text>Submit</Text>
-          </Button>
-          <View>
-            <Button
-              variant="ghost"
-              onPress={() => {
-                form.reset();
+                  placeholder="Habit for ..."
+                  description="habit description"
+                  {...field}
+                />
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="category"
+              render={({field}) => {
+                return (
+                  <FormSelect
+                    label="Category"
+                    description="Select on of the habit description"
+                    {...field}
+
+
+
+                  >
+                    <SelectTrigger
+                      onLayout={(ev) => {
+                        setSelectTriggerWidth(ev.nativeEvent.layout.width);
+                      }}
+                    >
+                      <SelectValue
+                        className={cn(
+                          "text-sm native:text-lg",
+                          field.value ? "text-foreground" : "text-muted-foreground",
+                        )}
+                        placeholder="Select a habit category"
+                      />
+                    </SelectTrigger>
+                    <SelectContent
+                      insets={contentInsets}
+                      style={{width: selectTriggerWidth}}
+                    >
+                      <SelectGroup>
+                        {HabitCategories.map((cat) => (
+                          <SelectItem
+                            key={cat.value}
+                            label={cat.label}
+                            value={cat.value}
+                          >
+                            <Text>{cat.label}</Text>
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </FormSelect>
+                )
               }}
-            >
-              <Text>Clear</Text>
+            />
+
+            <FormField
+              control={form.control}
+              name="duration"
+              render={({field}) => {
+                function onLabelPress(value: number) {
+                  return () => {
+                    form.setValue("duration", value);
+                  };
+                }
+                return (
+                  <FormRadioGroup
+                    label="Duration"
+                    description="Select your duration."
+                    className="gap-4"
+                    {...field}
+                    value={field.value.toString()}
+                  >
+                    {HabitDurations.map((item) => {
+                      return (
+                        <View
+                          key={item.value}
+                          className={"flex-row gap-2 items-center"}
+                        >
+                          <RadioGroupItem
+                            aria-labelledby={`label-for-${ item.label }`}
+                            value={item.value.toString()}
+                          />
+                          <Label
+                            nativeID={`label-for-${ item.label }`}
+                            className="capitalize"
+                            onPress={onLabelPress(item.value)}
+                          >
+                            {item.label}
+                          </Label>
+                        </View>
+                      );
+                    })}
+                  </FormRadioGroup>
+                );
+              }}
+            />
+
+            <FormField
+              control={form.control}
+              name="enableNotifications"
+              render={({field}) => (
+                <FormSwitch
+                  label="Enable reminder"
+                  description="We will send you notification reminder."
+                  {...field}
+                />
+              )}
+            />
+
+            <Button disabled={!form.formState.isDirty} onPress={form.handleSubmit(handleSubmit)}>
+              <Text>Update</Text>
             </Button>
+
+
           </View>
-        </View>
-      </Form>
+        </Form>
+      </FormElement>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+
+            variant="destructive"
+            className="shadow shadow-foreground/5 my-4"
+          >
+            <Text>Delete</Text>
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete this Habit ?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>
+              <Text>Cancel</Text>
+            </AlertDialogCancel>
+            <AlertDialogAction className="bg-destructive" onPress={handleDeleteHabit}>
+              <Text>Continue</Text>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </ScrollView>
   );
 }

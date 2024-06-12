@@ -71,27 +71,32 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-      <DatabaseProvider>
-        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-        <GestureHandlerRootView style={{flex: 1}}>
-          <BottomSheetModalProvider>
-            <Stack initialRouteName="index">
-              <Stack.Screen name="index" />
-              <Stack.Screen name="create" options={{presentation: "modal"}} />
-              <Stack.Screen
-                name="settings/index"
-                options={{
-                  headerBackTitleVisible: false,
-                  title: "Settings",
-                  headerShadowVisible: false,
-                }}
-              />
-            </Stack>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
-        <PortalHost />
-      </DatabaseProvider>
-    </ThemeProvider>
+    <>
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <DatabaseProvider>
+          <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+          <GestureHandlerRootView style={{flex: 1}}>
+            <BottomSheetModalProvider>
+              <Stack initialRouteName="index" >
+                <Stack.Screen name="index" />
+                <Stack.Screen name="create" options={{presentation: "modal"}} />
+
+                <Stack.Screen
+                  name="settings/index"
+                  options={{
+                    headerBackTitleVisible: false,
+                    title: "Settings",
+                    headerShadowVisible: false,
+                  }}
+                />
+              </Stack>
+            </BottomSheetModalProvider>
+          </GestureHandlerRootView>
+
+        </DatabaseProvider>
+      </ThemeProvider>
+      <PortalHost />
+    </>
+
   );
 }

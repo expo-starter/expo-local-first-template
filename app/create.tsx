@@ -1,9 +1,9 @@
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createInsertSchema} from "drizzle-zod";
-import {Stack, useRouter} from "expo-router";
+import {Link, Stack, useRouter} from "expo-router";
 import * as React from "react";
 import {useForm} from "react-hook-form";
-import {Alert, ScrollView, View} from "react-native";
+import {Alert, Platform, Pressable, ScrollView, View} from "react-native";
 import {useSafeAreaInsets} from "react-native-safe-area-context";
 import * as z from "zod";
 import {Button} from "@/components/ui/button";
@@ -11,6 +11,7 @@ import {
   Form,
   FormCheckbox,
   FormCombobox,
+  FormElement,
   FormField,
   FormInput,
   FormRadioGroup,
@@ -32,6 +33,7 @@ import {Text} from "@/components/ui/text";
 import {habitTable} from "@/db/schema";
 import {cn} from "@/lib/utils";
 import {useDatabase} from "@/db/provider";
+import {X} from "lucide-react-native";
 
 
 const HabitCategories = [
@@ -65,7 +67,7 @@ const formSchema = createInsertSchema(habitTable, {
       invalid_type_error: "Please select a favorite email.",
     },
   ),
-  duration: z.number().int().positive(),
+  duration: z.union([z.string(), z.number()]),
   enableNotifications: z.boolean(),
 });
 
@@ -75,6 +77,7 @@ const formSchema = createInsertSchema(habitTable, {
 export default function FormScreen() {
   const {db} = useDatabase();
   const router = useRouter();
+
   const scrollRef = React.useRef<ScrollView>(null);
   const insets = useSafeAreaInsets();
   const [selectTriggerWidth, setSelectTriggerWidth] = React.useState(0);
@@ -96,22 +99,22 @@ export default function FormScreen() {
     right: 12,
   };
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function handleSubmit(values: z.infer<typeof formSchema>) {
 
     try {
       const id = await db?.insert(habitTable).values({
         ...values,
         category: values.category.value,
+        duration: Number(values.duration),
       }).returning()
       console.log("id", id)
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
 
 
-    // router.dismiss()
+    router.dismiss()
   }
-
   return (
     <ScrollView
       ref={scrollRef}
@@ -123,17 +126,20 @@ export default function FormScreen() {
       <Stack.Screen
         options={{
           title: "New Habit",
+          headerRight: () => Platform.OS !== "web" && <Pressable onPress={() => router.dismiss()}><X /></Pressable>
         }}
       />
+
       <Form {...form}>
-        <View className="gap-7">
+        <View className="gap-8">
           <FormField
             control={form.control}
             name="name"
             render={({field}) => (
               <FormInput
                 label="Name"
-                placeholder="habit name"
+                placeholder="Habit name"
+                className="text-foreground"
                 description="This will help you remind."
                 autoCapitalize="none"
                 {...field}
@@ -200,7 +206,7 @@ export default function FormScreen() {
             control={form.control}
             name="duration"
             render={({field}) => {
-              function onLabelPress(value: number) {
+              function onLabelPress(value: number | string) {
                 return () => {
                   form.setValue("duration", value);
                 };
@@ -250,7 +256,7 @@ export default function FormScreen() {
             )}
           />
 
-          <Button onPress={form.handleSubmit(onSubmit)}>
+          <Button onPress={form.handleSubmit(handleSubmit)}>
             <Text>Submit</Text>
           </Button>
           <View>
@@ -263,8 +269,11 @@ export default function FormScreen() {
               <Text>Clear</Text>
             </Button>
           </View>
+
+
         </View>
       </Form>
-    </ScrollView>
+
+    </ScrollView >
   );
 }
