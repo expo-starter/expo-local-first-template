@@ -1,4 +1,4 @@
-import { SQLJsDatabase, drizzle } from "drizzle-orm/sql-js";
+import { type SQLJsDatabase, drizzle } from "drizzle-orm/sql-js";
 import initSqlJs, { SqlValue } from "sql.js";
 import fs from "node:fs";
 import path from "node:path";
@@ -21,6 +21,5 @@ const run = async () => {
   const data = sqldb.export();
   const buffer = Buffer.from(data);
   fs.writeFileSync(path.resolve(".", "public/database.sqlite"), buffer);
-
 };
 run().catch(console.log);

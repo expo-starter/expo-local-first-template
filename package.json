@@ -14,8 +14,8 @@
     "web": "expo start -c --web",
     "export": "expo export -p web",
     "format": "biome check --no-errors-on-unmatched --apply .",
-    "db:generate": "bunx drizzle-kit generate",
-    "db:studio": "bunx drizzle-kit studio"
+    "db:generate": "bun drizzle-kit generate",
+    "db:studio": "bun drizzle-kit studio"
   },
   "dependencies": {
     "@bacons/text-decoder": "^0.0.0",
@@ -23,6 +23,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@paralleldrive/cuid2": "^2.2.2",
     "@radix-ui/react-accordion": "^1.1.2",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",

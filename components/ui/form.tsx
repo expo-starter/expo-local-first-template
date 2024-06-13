@@ -12,7 +12,7 @@ import {
   type Noop,
   useFormContext,
 } from "react-hook-form";
-import {View} from "react-native";
+import {Platform, View} from "react-native";
 import Animated, {FadeInDown, FadeOut} from "react-native-reanimated";
 import {cn} from "../../lib/utils";
 import {Checkbox} from "./checkbox";
@@ -27,6 +27,13 @@ import {Textarea} from "./textarea";
 
 const Form = FormProvider;
 
+export const FormElement = (props: any) => {
+  return Platform.OS === "web" ? (
+    <form {...props} />
+  ) : (
+    <View {...props} />
+  );
+};
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
@@ -550,7 +557,6 @@ const FormSelect = React.forwardRef<
     formDescriptionNativeID,
     formMessageNativeID,
   } = useFormField();
-
   return (
     <FormItem>
       {!!label && <FormLabel nativeID={formItemNativeID}>{label}</FormLabel>}
@@ -567,7 +573,7 @@ const FormSelect = React.forwardRef<
         onOpenChange={setOpen}
         value={
           value
-            ? {label: value?.label ?? "", value: value?.label ?? ""}
+            ? {label: value?.label ?? "", value: value?.value ?? ""}
             : undefined
         }
         onValueChange={onChange}

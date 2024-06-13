@@ -2,7 +2,7 @@ import type React from "react";
 import {useState} from "react";
 import {TextInput, View} from "react-native";
 import {Button} from "@/components/ui/button";
-import type {Habit} from "./storage";
+import type {Habit} from "@/lib/storage";
 
 interface HabitFormProps {
   onSubmit: (habit: Habit) => void;
