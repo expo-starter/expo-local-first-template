@@ -7,6 +7,7 @@ import {FlatList, Pressable, View} from "react-native";
 import {ThemeToggle} from "@/components/ThemeToggle";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
+import {useLiveQuery} from 'drizzle-orm/expo-sqlite';
 
 import {Progress} from "@/components/ui/progress";
 import {Text} from "@/components/ui/text";
@@ -45,30 +46,17 @@ export default function Screen() {
 
   return <ScreenContent />;
 }
-const HabitCategories = [
-  {value: "health", label: "Health And Wellness"},
-  {value: "personal-development", label: "Personal Development"},
-  {value: "social-and-relationshipts", label: "Social And Relationships"},
-  {value: "productivity", label: "Productivity"},
-  {value: "creativity", label: "Creativity"},
-  {value: "mindfulness", label: "Mindfulness"},
-  {value: "financial", label: "Financial"},
-  {value: "leisure", label: "Leisure"},
-]
+
 function ScreenContent() {
   const {db} = useDatabase();
+  const {data: habits, error} = useLiveQuery(db?.select().from(habitTable));
 
-  const [habits, setHabits] = React.useState<Habit[]>([]);
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
   const router = useRouter();
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchHabits();
-    }, []),
-  );
+
   const formSchema = z.object({
     category: z.object(
       {value: z.string(), label: z.string()},
@@ -84,21 +72,16 @@ function ScreenContent() {
     }
   }
   )
-  const fetchHabits = async () => {
-    const fetchedHabits = await db?.select().from(habitTable).execute();
-    setHabits(fetchedHabits ?? []);
-  };
-
-  const handleDeleteHabit = async (id: string) => {
-    await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();
-    await fetchHabits();
-    return;
-  };
-
-  React.useEffect(() => {
-    fetchHabits();
-  }, []);
-
+  if (error) {
+    return (
+      <View className="flex-1 items-center justify-center bg-secondary/30">
+        <Text className="text-destructive pb-2">{error.message}</Text>
+        <Button onPress={() => router.replace("/")}>
+          <Text>Refresh</Text>
+        </Button>
+      </View>
+    )
+  }
   return (
     <View className="flex-1 gap-5 p-6 bg-secondary/30">
       <Stack.Screen
@@ -130,7 +113,7 @@ function ScreenContent() {
         ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
         renderItem={({item}) => (
-          <HabitCard habit={item} onPress={() => router.replace(`/habits/${ item.id }`)} />
+          <HabitCard habit={item} onPress={() => router.navigate(`/habits/${ item?.id }`)} />
         )}
         keyExtractor={(item) => item.id}
         ListFooterComponent={<View className="py-4" />}

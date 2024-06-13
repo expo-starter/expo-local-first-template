@@ -189,7 +189,6 @@ export default function FormScreen() {
       <Stack.Screen
         options={{
           title: "Habit",
-          headerLeft: () => <Pressable onPress={() => router.replace("/")}><ChevronLeft width={30} height={30} /></Pressable>
         }}
       />
       <FormElement
