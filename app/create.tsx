@@ -102,18 +102,16 @@ export default function FormScreen() {
   async function handleSubmit(values: z.infer<typeof formSchema>) {
 
     try {
-      const id = await db?.insert(habitTable).values({
+      await db?.insert(habitTable).values({
         ...values,
         category: values.category.value,
         duration: Number(values.duration),
       }).returning()
-      console.log("id", id)
+      router.replace("/")
     } catch (e) {
       console.error(e)
     }
 
-
-    router.dismiss()
   }
   return (
     <ScrollView

@@ -16,7 +16,7 @@ Say goodbye to time-consuming chores such implementing libraries, and developing
 - 💎 Integrate with [NativeWind v4](https://www.nativewind.dev), Tailwind CSS for React Native
 - 📁 Expo Router and Expo API
 - 📦 [zustand](docs.pmnd.rs/zustand) - State management solution.
-- 🎨 Common components : Icons, ThemeToggle, Avatar, Button, Card, Progress, Text, Tooltip
+- 🎨 Common components from the [rn-reusables](https://github.com/mrzachnugent/react-native-reusables) library: Icons, ThemeToggle, Avatar, Button, Card, Progress, Text, Tooltip.
 - 🌗 Dark and light mode - Android Navigation Bar matches mode and Persistant mode
 - 💡 Absolute Imports using `@` prefix
 - 📏 Linter and Code Formatter with [biome](https://biomejs.dev/)
@@ -24,10 +24,9 @@ Say goodbye to time-consuming chores such implementing libraries, and developing
 
 New :
 - 💽 Local-first based on [Expo SQLite for](https://docs.expo.dev/versions/latest/sdk/sqlite/) for native and [Sqlite.js](https://github.com/sql-js/sql.js) for Web
-- 💽 Full integrated with [DrizzleORM](https://drizzle.dev)
+- 💽 Full integrated with [DrizzleORM](https://drizzle.dev) including live query
 
 In-progress :
-- Live query with [DrizzleORM](https://drizzle.dev)
 - [Cloudflare D1](https://developers.cloudflare.com/d1/) for data persistance on Web as well as offline mode
 
 ### Requirements
@@ -70,5 +69,5 @@ See [LICENSE](LICENSE) for more information.
 
 ---
 
-Made with ♥ by [Launchtrack](https://launchtrack.dev) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes200)](https://twitter.com/younes200)
+Made with ♥ by [Expo starter](expostarter.com) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes200)](https://twitter.com/younes200)
 

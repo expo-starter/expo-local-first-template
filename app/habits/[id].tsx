@@ -49,7 +49,6 @@ import {Text} from "@/components/ui/text";
 import {useDatabase} from "@/db/provider";
 import {habitTable} from "@/db/schema";
 import {cn} from "@/lib/utils";
-import {ChevronLeft} from "lucide-react-native";
 import type {Habit} from "@/lib/storage";
 
 const HabitCategories = [
@@ -189,7 +188,6 @@ export default function FormScreen() {
       <Stack.Screen
         options={{
           title: "Habit",
-          headerLeft: () => <Pressable onPress={() => router.replace("/")}><ChevronLeft width={30} height={30} /></Pressable>
         }}
       />
       <FormElement

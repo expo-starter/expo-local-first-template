@@ -13,37 +13,37 @@ import {
 } from "@/components/ui/card";
 import {Badge} from "../ui/badge";
 import {Progress} from "../ui/progress";
-type HabitProps = {
-  habit: Habit;
-  onPress: () => void;
-};
+import {Link} from "expo-router";
 
-export const HabitCard: React.FC<HabitProps> = ({habit, onPress}) => {
+type HabitProps = Habit;
+
+export const HabitCard: React.FC<HabitProps> = ({id, name, description, category}: HabitProps) => {
   return (
-    <Pressable onPress={onPress}>
-      <Card className="rounded-2xl">
-        <CardHeader>
-          <View className="flex-row gap-4 items-center">
-            <CardTitle className="pb-2">
-              {habit.name}
-            </CardTitle>
-            <Badge variant="outline">
-              <Text >{habit.category}</Text>
-            </Badge>
-          </View>
+    <Link href={`/habits/${ id }`} asChild>
+      <Pressable>
+        <Card className="rounded-2xl">
+          <CardHeader>
+            <View className="flex-row gap-4 items-center">
+              <CardTitle className="pb-2">
+                {name}
+              </CardTitle>
+              <Badge variant="outline">
+                <Text >{category}</Text>
+              </Badge>
+            </View>
 
-          <View className="flex-col">
-            <CardDescription className="text-base font-semibold">
-              {habit.description}
-            </CardDescription>
-          </View>
-        </CardHeader>
-        <CardContent />
-        <CardFooter className="flex-col gap-3 flex-1">
-          <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
-        </CardFooter>
-      </Card>
-    </Pressable >
-
+            <View className="flex-col">
+              <CardDescription className="text-base font-semibold">
+                {description}
+              </CardDescription>
+            </View>
+          </CardHeader>
+          <CardContent />
+          <CardFooter className="flex-col gap-3 flex-1">
+            <Progress value={10} className="h-2" indicatorClassName="bg-sky-600" />
+          </CardFooter>
+        </Card>
+      </Pressable>
+    </Link>
   );
 };

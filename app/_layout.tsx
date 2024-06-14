@@ -79,7 +79,7 @@ export default function RootLayout() {
             <BottomSheetModalProvider>
               <Stack initialRouteName="index" >
                 <Stack.Screen name="index" />
-                <Stack.Screen name="create" options={{presentation: "modal"}} />
+                <Stack.Screen name="create" options={{presentation: "containedModal"}} />
 
                 <Stack.Screen
                   name="settings/index"
