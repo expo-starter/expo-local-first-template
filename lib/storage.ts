@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const HABIT_KEY = "habits";
 
 export type Habit = {
+  id: string;
   name: string;
   description: string;
   duration: number;

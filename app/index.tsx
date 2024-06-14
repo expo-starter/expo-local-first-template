@@ -3,28 +3,22 @@ import {FlashList} from "@shopify/flash-list";
 import {eq} from "drizzle-orm";
 import {Link, Stack, useFocusEffect, useRouter} from "expo-router";
 import * as React from "react";
-import {FlatList, Pressable, View} from "react-native";
+import {Pressable, View} from "react-native";
 import {ThemeToggle} from "@/components/ThemeToggle";
-import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
-import {useLiveQuery} from 'drizzle-orm/expo-sqlite';
+import {useLiveQuery} from "drizzle-orm/expo-sqlite";
 
 import {Progress} from "@/components/ui/progress";
 import {Text} from "@/components/ui/text";
-import {type Habit, habitTable} from "@/db/schema";
+import {habitTable} from "@/db/schema";
 import {Plus, PlusCircle} from "@/components/Icons";
 import {useMigrationHelper} from "@/db/drizzle";
 import {useDatabase} from "@/db/provider";
-import Settings from "./settings";
 import {SettingsIcon} from "lucide-react-native";
 
-import {useForm} from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
-import * as z from "zod";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+
 import {HabitCard} from "@/components/habit";
-
-
+import type {Habit} from "@/lib/storage";
 
 export default function Screen() {
   const {success, error} = useMigrationHelper();
@@ -56,39 +50,30 @@ function ScreenContent() {
 
   const router = useRouter();
 
+  const renderItem = React.useCallback(
+    ({item}: {item: Habit}) => <HabitCard {...item} />,
+    [],
+  );
 
-  const formSchema = z.object({
-    category: z.object(
-      {value: z.string(), label: z.string()},
-      {
-        invalid_type_error: 'Please select a category',
-      }
-    ),
-  });
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    values: {
-      category: {value: "health", label: "Health And Wellness"}
-    }
-  }
-  )
   if (error) {
     return (
       <View className="flex-1 items-center justify-center bg-secondary/30">
-        <Text className="text-destructive pb-2">{error.message}</Text>
-        <Button onPress={() => router.replace("/")}>
-          <Text>Refresh</Text>
-        </Button>
+        <Text className="text-destructive pb-2 ">Error Loading data</Text>
       </View>
-    )
+    );
   }
   return (
     <View className="flex-1 gap-5 p-6 bg-secondary/30">
+
       <Stack.Screen
         options={{
           title: "Habits",
           headerRight: () => <ThemeToggle />,
-          headerLeft: () => <Button variant="link" onPress={() => router.navigate("settings")}><SettingsIcon /></Button>
+          headerLeft: () => (
+            <Button variant="link" onPress={() => router.navigate("settings")}>
+              <SettingsIcon />
+            </Button>
+          ),
         }}
       />
       <FlashList
@@ -112,10 +97,8 @@ function ScreenContent() {
         )}
         ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
-        renderItem={({item}) => (
-          <HabitCard habit={item} onPress={() => router.navigate(`/habits/${ item?.id }`)} />
-        )}
-        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        keyExtractor={(_, index) => `item-${ index }`}
         ListFooterComponent={<View className="py-4" />}
       />
       <View className="absolute bottom-10 right-8">
@@ -127,7 +110,6 @@ function ScreenContent() {
           </Pressable>
         </Link>
       </View>
-
     </View>
   );
 }

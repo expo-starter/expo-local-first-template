@@ -24,10 +24,9 @@ Say goodbye to time-consuming chores such implementing libraries, and developing
 
 New :
 - 💽 Local-first based on [Expo SQLite for](https://docs.expo.dev/versions/latest/sdk/sqlite/) for native and [Sqlite.js](https://github.com/sql-js/sql.js) for Web
-- 💽 Full integrated with [DrizzleORM](https://drizzle.dev)
+- 💽 Full integrated with [DrizzleORM](https://drizzle.dev) including live query
 
 In-progress :
-- Live query with [DrizzleORM](https://drizzle.dev)
 - [Cloudflare D1](https://developers.cloudflare.com/d1/) for data persistance on Web as well as offline mode
 
 ### Requirements

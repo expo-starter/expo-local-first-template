@@ -49,7 +49,6 @@ import {Text} from "@/components/ui/text";
 import {useDatabase} from "@/db/provider";
 import {habitTable} from "@/db/schema";
 import {cn} from "@/lib/utils";
-import {ChevronLeft} from "lucide-react-native";
 import type {Habit} from "@/lib/storage";
 
 const HabitCategories = [
