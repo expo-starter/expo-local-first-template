@@ -2,8 +2,8 @@ import type { ConfigContext, ExpoConfig } from "@expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "Launchtrack Starter",
-  slug: "launchtrack-starter",
+  name: "Expo Starter",
+  slug: "expostarter",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
@@ -20,14 +20,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "dev.launchtrack.base",
+    bundleIdentifier: "com.expostarter.base",
   },
   android: {
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#ffffff",
     },
-    package: "dev.launchtrack.starterbase",
+    package: "com.expostarter.base",
   },
   web: {
     bundler: "metro",
@@ -37,7 +37,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [["expo-router"]],
   experiments: {
     typedRoutes: true,
-    baseUrl: "/expo-starter",
+    baseUrl: "/expo-template",
   },
   extra: {
     eas: {

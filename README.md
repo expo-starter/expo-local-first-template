@@ -1,7 +1,7 @@
 # React Native Expo Template  [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/younes0x53)
 
 <p align="center">
-  <a href="https://launchtrack.dev/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
+  <a href="https://expo-starter.com/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
 </p>
 
 Say goodbye to time-consuming chores such implementing libraries, and developing reusable components. Our project boilerplate helps removing repetitive tasks when initiating a project from zero. It includes only the most frequently utilized libraries, so you can hit the ground running with a fully configured setup.
@@ -40,7 +40,7 @@ In-progress :
 Run the following command on your local environment:
 
 ```shell
-bunx create-expo-app --template @launchtrack/expo-starter
+bunx create-expo-app --template @expos-tarter/template
 ```
 
 Then, you can run locally in development mode with live reload:
@@ -52,7 +52,7 @@ bun run dev:android
 ```
 
 <p align="center">
-  <a href="https://launchtrack.dev/"><img src="assets/preview-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
+  <a href="https://expostarter.dev/"><img src="assets/preview-banner.png?raw=true" alt="React Native Expo Starter Kit"></a>
 </p>
 
 This will open the app in the iOS simulator or Android emulator.
