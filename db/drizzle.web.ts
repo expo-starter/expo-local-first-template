@@ -2,13 +2,12 @@ import { type SQLJsDatabase, drizzle } from "drizzle-orm/sql-js";
 import initSqlJs from "sql.js";
 import { useDatabase } from "./provider";
 import { useEffect, useReducer } from "react";
-import { habitTable } from "./schema";
 
 export const initialize = async (): Promise<SQLJsDatabase> => {
   const sqlPromise = initSqlJs({
     locateFile: (file) => `https://sql.js.org/dist/${file}`,
   });
-  const dataPromise = fetch("/database.sqlite").then((res) =>
+  const dataPromise = fetch("./database.sqlite").then((res) =>
     res.arrayBuffer(),
   );
   const [SQL, buf] = await Promise.all([sqlPromise, dataPromise]);
