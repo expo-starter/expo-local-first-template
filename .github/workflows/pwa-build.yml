@@ -5,7 +5,7 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   Build:
     name: Publish PWA to Github Pages
@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/setup-bun-install
 
       - name: ⚙️ Run Prebuild
-        run: bun export
+        run: bunx tailwind -o node_modules/.cache/nativewind/styles.css && bun export
         shell: bash
 
       - name: 📱 Publish web app

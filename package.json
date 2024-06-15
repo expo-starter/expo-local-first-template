@@ -80,6 +80,7 @@
     "typescript": "^5.4.5"
   },
   "trustedDependencies": [
-    "tailwindcss"
+    "tailwindcss",
+    "nativewind"
   ]
 }
