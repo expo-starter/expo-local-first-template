@@ -40,7 +40,7 @@ In-progress :
 Run the following command on your local environment:
 
 ```shell
-bunx create-expo-app --template @expos-tarter/template
+bunx create-expo-app --template @expo-starter/template
 ```
 
 Then, you can run locally in development mode with live reload:
@@ -69,5 +69,4 @@ See [LICENSE](LICENSE) for more information.
 
 ---
 
-Made with ♥ by [Expo starter](expostarter.com) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes200)](https://twitter.com/younes200)
-
+Made with ♥ by [Expo starter](expostarter.com) [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/younes0x53)
