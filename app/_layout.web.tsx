@@ -1,3 +1,4 @@
+import "./global.css";
 import {Button} from "@/components/ui";
 import {DatabaseProvider} from "@/db/provider";
 import {Link, Slot, Stack} from "expo-router";
