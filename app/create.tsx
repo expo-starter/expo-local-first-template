@@ -115,15 +115,17 @@ export default function FormScreen() {
   }
   return (
     <ScrollView
-      ref={scrollRef}
       contentContainerClassName="p-6 mx-auto w-full max-w-xl"
-      showsVerticalScrollIndicator={false}
+      showsVerticalScrollIndicator={true}
+      className="bg-background"
+
       automaticallyAdjustContentInsets={false}
       contentInset={{top: 12}}
     >
       <Stack.Screen
         options={{
           title: "New Habit",
+          headerShadowVisible: true,
           headerRight: () => Platform.OS !== "web" && <Pressable onPress={() => router.dismiss()}><X /></Pressable>
         }}
       />
