@@ -7,6 +7,7 @@ import {Pressable, View} from "react-native";
 import {ThemeToggle} from "@/components/ThemeToggle";
 import {Button} from "@/components/ui/button";
 import {useLiveQuery} from "drizzle-orm/expo-sqlite";
+import {useTheme} from "next-themes";
 
 import {Progress} from "@/components/ui/progress";
 import {Text} from "@/components/ui/text";
@@ -44,11 +45,11 @@ export default function Screen() {
 function ScreenContent() {
   const {db} = useDatabase();
   const {data: habits, error} = useLiveQuery(db?.select().from(habitTable));
-
+  const {theme, setTheme} = useTheme()
+  // console.log("theme", theme)
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
-  const router = useRouter();
 
   const renderItem = React.useCallback(
     ({item}: {item: Habit}) => <HabitCard {...item} />,
@@ -63,17 +64,22 @@ function ScreenContent() {
     );
   }
   return (
-    <View className="flex-1 gap-5 p-6 bg-secondary/30">
+    <View className="flex flex-col basis-full bg-background  p-8">
 
+      {/* <Button onPress={() => setTheme("light")}>
+        <Text>Light mode</Text>
+      </Button>
+
+      <Button onPress={() => setTheme('dark')}>
+        <Text>Dark mode</Text>
+      </Button> */}
       <Stack.Screen
         options={{
           title: "Habits",
+          // headerTitleStyle: {
+          //   color: "hsl(var(--foreground))"
+          // },
           headerRight: () => <ThemeToggle />,
-          headerLeft: () => (
-            <Button variant="link" onPress={() => router.navigate("settings")}>
-              <SettingsIcon />
-            </Button>
-          ),
         }}
       />
       <FlashList
@@ -94,14 +100,15 @@ function ScreenContent() {
               </Text>
             </Text>
           </View>
-        )}
+        )
+        }
         ItemSeparatorComponent={() => <View className="p-2" />}
         data={habits}
         renderItem={renderItem}
         keyExtractor={(_, index) => `item-${ index }`}
-        ListFooterComponent={<View className="py-4" />}
+        ListFooterComponent={< View className="py-4" />}
       />
-      <View className="absolute bottom-10 right-8">
+      <View className="absolute web:bottom-20 bottom-10 right-8" >
         <Link href="/create" asChild>
           <Pressable>
             <View className="bg-primary justify-center rounded-full h-[45px] w-[45px]">
@@ -110,6 +117,6 @@ function ScreenContent() {
           </Pressable>
         </Link>
       </View>
-    </View>
+    </View >
   );
 }

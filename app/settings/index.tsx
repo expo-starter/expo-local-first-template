@@ -9,7 +9,7 @@ import {Plus, PlusCircle} from "@/components/Icons";
 
 export default function Settings() {
   return (
-    <View className="flex-1 w-full px-6 pt-4 bg-muted gap-y-6">
+    <View className="flex-1 w-full px-6 pt-4 bg-background gap-y-6">
 
       <List>
         <ListHeader>
