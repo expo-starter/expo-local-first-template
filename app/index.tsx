@@ -45,8 +45,7 @@ export default function Screen() {
 function ScreenContent() {
   const {db} = useDatabase();
   const {data: habits, error} = useLiveQuery(db?.select().from(habitTable));
-  const {theme, setTheme} = useTheme()
-  // console.log("theme", theme)
+
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
@@ -66,19 +65,10 @@ function ScreenContent() {
   return (
     <View className="flex flex-col basis-full bg-background  p-8">
 
-      {/* <Button onPress={() => setTheme("light")}>
-        <Text>Light mode</Text>
-      </Button>
 
-      <Button onPress={() => setTheme('dark')}>
-        <Text>Dark mode</Text>
-      </Button> */}
       <Stack.Screen
         options={{
           title: "Habits",
-          // headerTitleStyle: {
-          //   color: "hsl(var(--foreground))"
-          // },
           headerRight: () => <ThemeToggle />,
         }}
       />

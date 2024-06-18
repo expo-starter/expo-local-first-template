@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./global.css";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {type Theme, ThemeProvider} from "@react-navigation/native";
