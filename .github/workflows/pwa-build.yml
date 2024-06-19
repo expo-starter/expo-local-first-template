@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/setup-bun-install
 
       - name: ⚙️ Run Prebuild
-        run: bunx tailwind -o node_modules/.cache/nativewind/global.css && bun export
+        run: bunx tailwind -o node_modules/.cache/nativewind/global.css.web.css && bun export
         shell: bash
 
       - name: 📱 Publish web app
