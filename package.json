@@ -2,8 +2,8 @@
   "name": "@expo-starter/template",
   "main": "index.ts",
   "version": "1.0.6",
-  "homepage": "https://expo-starter.com",
-  "repository": "git@github.com:expo-starter/template.git",
+  "homepage": "https://expostarter.com",
+  "repository": "git@github.com:expo-starter/expo-template.git",
   "license": "Apache-2.0",
   "scripts": {
     "dev": "expo start --dev-client --clear",
