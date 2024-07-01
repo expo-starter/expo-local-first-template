@@ -17,6 +17,7 @@ import {useMigrationHelper} from "@/db/drizzle";
 import {useDatabase} from "@/db/provider";
 import {SettingsIcon} from "lucide-react-native";
 import {HabitCard} from '@/components/habit';
+import {db} from '@/db/migrate';
 
 export default function Home() {
   const {success, error} = useMigrationHelper();
@@ -62,8 +63,6 @@ function ScreenContent() {
   }
   return (
     <View className="flex flex-col basis-full bg-background  p-8">
-
-
       <Stack.Screen
         options={{
           title: "Habits",

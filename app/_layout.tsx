@@ -41,10 +41,6 @@ export default function RootLayout() {
   React.useEffect(() => {
     (async () => {
       const theme = await AsyncStorage.getItem("theme");
-      if (Platform.OS === "web") {
-        // Adds the background color to the html element to prevent white background on overscroll.
-        document.documentElement.classList.add("bg-background");
-      }
       if (!theme) {
         setAndroidNavigationBar(colorScheme);
         AsyncStorage.setItem("theme", colorScheme);
@@ -71,8 +67,8 @@ export default function RootLayout() {
 
   return (
     <>
-      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <DatabaseProvider>
+      <DatabaseProvider>
+        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
           <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
           <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
@@ -83,8 +79,8 @@ export default function RootLayout() {
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
 
-        </DatabaseProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </DatabaseProvider>
       <PortalHost />
     </>
 

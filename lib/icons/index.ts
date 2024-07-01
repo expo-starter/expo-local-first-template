@@ -8,4 +8,8 @@ export { Settings } from "./Settings";
 export { BookOpen } from "./Book";
 export { Shield } from "./Shield";
 export { Star } from "./Star";
+export { Sun } from "./Sun";
 export { Bell } from "./Bell";
+export { Check } from "./Check";
+export { MoonStar } from "./Moonstar";
+export { Smartphone } from "./Smartphone";
