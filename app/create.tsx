@@ -126,7 +126,7 @@ export default function FormScreen() {
         options={{
           title: "New Habit",
           headerShadowVisible: true,
-          headerRight: () => Platform.OS !== "web" && <Pressable onPress={() => router.dismiss()}><X /></Pressable>
+          // headerRight: () => Platform.OS !== "web" && <Pressable onPress={() => router.dismiss()}><X /></Pressable>
         }}
       />
 

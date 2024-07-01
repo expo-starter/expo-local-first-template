@@ -8,7 +8,7 @@ import {Link, Slot, Stack} from "expo-router";
 import {ThemeProvider, useTheme} from "next-themes";
 import {Text} from "@/components/ui/text";
 import {SettingsIcon} from "lucide-react-native";
-import {ListBullets} from "@/lib/icons/ListBullets"
+import {List} from "@/lib/icons/List"
 import {ThemeToggle} from "@/components/ThemeToggle";
 import {View} from "react-native";
 const TopNav = () => {
@@ -41,7 +41,7 @@ export default function RootLayout() {
                     variant="ghost"
                     className="flex-row gap-2 justify-start"
                   >
-                    <ListBullets className="text-foreground" />
+                    <List className="text-foreground" />
                     <Text className="text-base">Habits</Text>
                   </Button>
                 </Link>

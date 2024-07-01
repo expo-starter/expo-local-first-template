@@ -1,9 +1,9 @@
+import {View, StyleSheet, Pressable} from 'react-native';
 import {useScrollToTop} from "@react-navigation/native";
 import {FlashList} from "@shopify/flash-list";
 import {eq} from "drizzle-orm";
 import {Link, Stack, useFocusEffect, useRouter} from "expo-router";
 import * as React from "react";
-import {Pressable, View} from "react-native";
 import {ThemeToggle} from "@/components/ThemeToggle";
 import {Button} from "@/components/ui/button";
 import {useLiveQuery} from "drizzle-orm/expo-sqlite";
@@ -11,17 +11,14 @@ import {useTheme} from "next-themes";
 
 import {Progress} from "@/components/ui/progress";
 import {Text} from "@/components/ui/text";
-import {habitTable} from "@/db/schema";
+import {type Habit, habitTable} from "@/db/schema";
 import {Plus, PlusCircle} from "@/components/Icons";
 import {useMigrationHelper} from "@/db/drizzle";
 import {useDatabase} from "@/db/provider";
 import {SettingsIcon} from "lucide-react-native";
+import {HabitCard} from '@/components/habit';
 
-
-import {HabitCard} from "@/components/habit";
-import type {Habit} from "@/lib/storage";
-
-export default function Screen() {
+export default function Home() {
   const {success, error} = useMigrationHelper();
 
   if (error) {
@@ -38,6 +35,7 @@ export default function Screen() {
       </View>
     );
   }
+
 
   return <ScreenContent />;
 }
@@ -109,4 +107,6 @@ function ScreenContent() {
       </View>
     </View >
   );
+
 }
+

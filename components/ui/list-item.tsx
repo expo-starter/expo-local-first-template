@@ -98,7 +98,7 @@ const ListItem: React.FC<ListItemProps> = ({
 				<View className="mr-3">
 					{itemLeft({
 						className: cn(
-							"size-5 text-foreground",
+							"text-foreground",
 							listItemTextVariants({variant}),
 						),
 					})}

@@ -7,7 +7,6 @@ import {StatusBar} from "expo-status-bar";
 import * as React from "react";
 import {Platform} from "react-native";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import {ThemeToggle} from "@/components/ThemeToggle";
 import {PortalHost} from "@/components/primitives/portal";
 import {DatabaseProvider} from "@/db/provider";
 import {setAndroidNavigationBar} from "@/lib/android-navigation-bar";
@@ -29,7 +28,7 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: "index",
+  initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
@@ -77,18 +76,9 @@ export default function RootLayout() {
           <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
           <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
-              <Stack initialRouteName="index" >
-                <Stack.Screen name="index" />
-                <Stack.Screen name="create" options={{presentation: "containedModal"}} />
+              <Stack >
+                <Stack.Screen name="(tabs)" options={{headerShown: false}} />
 
-                <Stack.Screen
-                  name="settings/index"
-                  options={{
-                    headerBackTitleVisible: false,
-                    title: "Settings",
-                    headerShadowVisible: false,
-                  }}
-                />
               </Stack>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
