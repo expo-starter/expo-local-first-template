@@ -48,7 +48,7 @@ function ScreenContent() {
     ({item}: {item: Habit}) => <HabitCard {...item} />,
     [],
   );
-  console.log("error", error)
+
   if (error) {
     return (
       <View className="flex-1 items-center justify-center bg-secondary/30">

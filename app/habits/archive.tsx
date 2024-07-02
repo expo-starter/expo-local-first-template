@@ -40,7 +40,6 @@ export default function Home() {
     Alert.alert('Are you absolutely sure?', 'Are you sure you want to delete this Habit ?', [
       {
         text: 'Cancel',
-        onPress: () => console.log('Ask me later pressed'),
       },
       {
         text: 'Continue',
