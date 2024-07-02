@@ -78,7 +78,14 @@ export default function RootLayout() {
             <BottomSheetModalProvider>
               <Stack >
                 <Stack.Screen name="(tabs)" options={{headerShown: false}} />
-
+                <Stack.Screen options={{
+                  headerShadowVisible: false,
+                  headerBackTitleVisible: false,
+                }} name="habits/archive" />
+                <Stack.Screen options={{
+                  headerShadowVisible: false,
+                  headerBackTitleVisible: false,
+                }} name="habits/[id]" />
               </Stack>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>

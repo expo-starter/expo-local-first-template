@@ -30,6 +30,7 @@ export type Habit = {
   duration: number;
   category: string;
   enableNotifications: boolean;
+  archived: boolean;
 };
 
 export async function getHabits(): Promise<Habit[]> {

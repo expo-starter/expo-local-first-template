@@ -8,6 +8,7 @@ import {Archive, Bell, BookOpen, Send, Shield, Star} from '@/lib/icons';
 import * as WebBrowser from "expo-web-browser";
 
 import {ThemeSettingItem} from '@/components/settings/ThemeItem';
+import {NotificationItem} from '@/components/settings/NotificationItem';
 
 export default function Settings() {
   const openExternalURL = (url: string) => {
@@ -26,17 +27,13 @@ export default function Settings() {
         </ListHeader>
         <ThemeSettingItem />
         {
-          Platform.OS !== "web" && <ListItem
-            itemLeft={(props) => <Bell {...props} />} // props adds size and color attributes
-            label="Notifications"
-
-            href="/general" // automatically adds a ">" icon
-          />
+          Platform.OS !== "web" && <NotificationItem />
         }
         <ListItem
           itemLeft={(props) => <Archive {...props} />} // props adds size and color attributes
           label="Archive Habits"
-        // variant="link"
+          // variant="link"
+          href="/habits/archive"
         />
 
         <ListHeader className='pt-8'>

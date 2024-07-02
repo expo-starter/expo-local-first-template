@@ -149,13 +149,13 @@ export default function FormScreen() {
       setHabit(fetchedHabit[0])
     }
   };
-  const handleDeleteHabit = async () => {
-    // Are you sure you want to delete this Habit ?
+
+  const handleArchiveHabit = async () => {
     try {
-      await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();
+      await db?.update(habitTable).set({archived: true}).where(eq(habitTable.id, id)).execute();
       router.replace("/")
     } catch (error) {
-      console.error("error", error)
+      console.error(error)
     }
 
   };
@@ -336,27 +336,26 @@ export default function FormScreen() {
       </FormElement>
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button
 
-            variant="destructive"
-            className="shadow shadow-foreground/5 my-4"
+          <Button
+            className="shadow shadow-foreground/5 my-4 bg-violet-600"
           >
-            <Text>Delete</Text>
+            <Text>Archive</Text>
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this Habit ?
+              Are you sure you want to archive this habit ?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
               <Text>Cancel</Text>
             </AlertDialogCancel>
-            <AlertDialogAction className="bg-destructive" onPress={handleDeleteHabit}>
-              <Text>Continue</Text>
+            <AlertDialogAction className="bg-violet-600" onPress={handleArchiveHabit}>
+              <Text>Archive</Text>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
