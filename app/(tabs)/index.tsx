@@ -66,7 +66,6 @@ function ScreenContent() {
       <Stack.Screen
         options={{
           title: "Habits",
-          headerRight: () => <ThemeToggle />,
         }}
       />
       <FlashList

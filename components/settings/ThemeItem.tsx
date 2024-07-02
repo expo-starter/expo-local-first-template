@@ -1,14 +1,18 @@
-import {Pressable, View} from "react-native";
+import {Platform, Pressable, View} from "react-native";
 
 import {H4} from '@/components/ui/typography';
 import {BottomSheet, BottomSheetContent, BottomSheetHeader, BottomSheetOpenTrigger, BottomSheetView} from "@/components/primitives/bottomSheet/bottom-sheet.native";
 import {Text} from "@/components/ui//text";
-import {MoonStar, Palette, Smartphone, Sun} from '@/lib/icons';
+import {Moon, Palette, Smartphone, Sun} from '@/lib/icons';
 
 import ListItem from "@/components/ui/list-item";
 import {Check} from "@/lib/icons/Check";
-import {useColorScheme} from "nativewind";
-import {useMemo, useState} from "react";
+import {useCallback, useMemo, useState} from "react";
+import {useBottomSheetModal} from "@gorhom/bottom-sheet";
+import {getItem, setItem} from "@/lib/storage";
+
+import {useColorScheme} from "@/lib/useColorScheme";
+import {useTheme} from "next-themes";
 type ItemData = {
   title: string;
   subtitle: string;
@@ -38,11 +42,13 @@ function ThemeItem({item, onPress, selected}: ItemProps) {
 }
 
 export const ThemeSettingItem = () => {
-  const [selectedTheme, setSelectedTheme] = useState<string>(
+  const [selectedTheme, setSelectedTheme] = useState(getItem<"light" | "dark" | "system">("theme"),
   );
   const {setColorScheme} = useColorScheme();
+  const {dismiss} = useBottomSheetModal();
+  const {theme, setTheme} = useTheme()
 
-  const menus: ItemData[] = useMemo(
+  const themes: ItemData[] = useMemo(
     () => [
       {
         title: "Device settings",
@@ -54,7 +60,7 @@ export const ThemeSettingItem = () => {
         title: "Dark mode",
         subtitle: "Always use Dark mode",
         value: "dark",
-        icon: <MoonStar className="text-foreground" />,
+        icon: <Moon className="text-foreground" />,
       },
       {
         title: "Light mode",
@@ -66,14 +72,21 @@ export const ThemeSettingItem = () => {
     [],
   );
 
-  function onChange(value: "light" | "dark" | "system") {
-    setColorScheme(value);
-    // setItem("theme", value);
-    setSelectedTheme(value);
-  }
+  const onSelect = useCallback(
+    (value: "light" | "dark" | "system") => {
+      if (Platform.OS === "web") {
+        setTheme(value)
+      } else {
+        setColorScheme(value);
+        setItem("theme", value)
+        setSelectedTheme(value);
 
+      }
+      dismiss()
+    }, [selectedTheme, theme, setTheme]
+  )
   return (
-    <BottomSheet>
+    <BottomSheet >
       <BottomSheetOpenTrigger asChild>
         <ListItem
           itemLeft={(props) => <Palette {...props} />} // props adds size and color attributes
@@ -82,18 +95,18 @@ export const ThemeSettingItem = () => {
         />
       </BottomSheetOpenTrigger>
       <BottomSheetContent>
-        <BottomSheetHeader className="text-center">
-          <Text className="text-foreground text-xl font-bold text-center pb-1">
+        <BottomSheetHeader className="bg-background">
+          <Text className="text-foreground text-xl font-bold  pb-1">
             Select Theme
           </Text>
         </BottomSheetHeader>
-        <BottomSheetView className='gap-5 pt-6'>
-          {menus.map((item) => (
+        <BottomSheetView className='gap-5 pt-6 bg-background'>
+          {themes.map((theme) => (
             <ThemeItem
-              key={item.title}
-              item={item}
-              onPress={() => onChange(item.value)}
-              selected={item.value === selectedTheme}
+              key={theme.title}
+              item={theme}
+              onPress={() => onSelect(theme.value)}
+              selected={theme.value === selectedTheme}
             />
           ))}
         </BottomSheetView>

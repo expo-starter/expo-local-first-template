@@ -11,5 +11,5 @@ export { Star } from "./Star";
 export { Sun } from "./Sun";
 export { Bell } from "./Bell";
 export { Check } from "./Check";
-export { MoonStar } from "./Moonstar";
+export { Moon } from "./Moon";
 export { Smartphone } from "./Smartphone";

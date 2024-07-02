@@ -1,14 +1,16 @@
+import {Button, Text} from '@/components/ui';
 import {List} from '@/lib/icons/List';
 import {Settings} from '@/lib/icons/Settings';
 
 import {Tabs} from 'expo-router';
+import {Pressable} from 'react-native';
 export const unstable_settings = {
   initialRouteName: "index",
 };
 
 export default function TabLayout() {
   return (
-    <Tabs screenOptions={{tabBarActiveTintColor: 'blue'}}>
+    <Tabs >
       <Tabs.Screen
         name="index"
         options={{
