@@ -14,7 +14,7 @@
     "web": "expo start -c --web",
     "export": "expo export -p web",
     "format": "biome check --no-errors-on-unmatched --apply .",
-    "migrate": "bun drizzle-kit generate",
+    "migrate": "bun ./db/migrate.ts",
     "db:studio": "bun drizzle-kit studio"
   },
   "dependencies": {

@@ -29,12 +29,12 @@ export default function Settings() {
         {
           Platform.OS !== "web" && <NotificationItem />
         }
-        <ListItem
+        {/* <ListItem
           itemLeft={(props) => <Archive {...props} />} // props adds size and color attributes
           label="Archive Habits"
           // variant="link"
           href="/habits/archive"
-        />
+        /> */}
 
         <ListHeader className='pt-8'>
           <Muted>GENERAL</Muted>

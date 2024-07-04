@@ -150,15 +150,15 @@ export default function FormScreen() {
     }
   };
 
-  const handleArchiveHabit = async () => {
-    try {
-      await db?.update(habitTable).set({archived: true}).where(eq(habitTable.id, id)).execute();
-      router.replace("/")
-    } catch (error) {
-      console.error(error)
-    }
+  // const handleArchiveHabit = async () => {
+  //   try {
+  //     await db?.update(habitTable).set({archived: true}).where(eq(habitTable.id, id)).execute();
+  //     router.replace("/")
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
 
-  };
+  // };
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -166,7 +166,7 @@ export default function FormScreen() {
         name: values.name,
         description: values.description,
         duration: Number(values.duration),
-        category: values.category.value,
+        // category: values.category.value,
         enableNotifications: values.enableNotifications,
       }).where(eq(habitTable.id, id as string))
         .execute();
@@ -334,11 +334,11 @@ export default function FormScreen() {
           </View>
         </Form>
       </FormElement>
-      <AlertDialog>
+      {/* <AlertDialog>
         <AlertDialogTrigger asChild>
 
           <Button
-            className="shadow shadow-foreground/5 my-4 bg-violet-600"
+            className="shadow shadow-foreground/5 my-4 bg-background"
           >
             <Text>Archive</Text>
           </Button>
@@ -354,12 +354,12 @@ export default function FormScreen() {
             <AlertDialogCancel>
               <Text>Cancel</Text>
             </AlertDialogCancel>
-            <AlertDialogAction className="bg-violet-600" onPress={handleArchiveHabit}>
+            <AlertDialogAction className="bg-foreground" onPress={handleArchiveHabit}>
               <Text>Archive</Text>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
+      </AlertDialog> */}
     </ScrollView>
   );
 }
