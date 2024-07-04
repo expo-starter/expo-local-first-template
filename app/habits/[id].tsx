@@ -149,16 +149,16 @@ export default function FormScreen() {
       setHabit(fetchedHabit[0])
     }
   };
-  const handleDeleteHabit = async () => {
-    // Are you sure you want to delete this Habit ?
-    try {
-      await db?.delete(habitTable).where(eq(habitTable.id, id)).execute();
-      router.replace("/")
-    } catch (error) {
-      console.error("error", error)
-    }
 
-  };
+  // const handleArchiveHabit = async () => {
+  //   try {
+  //     await db?.update(habitTable).set({archived: true}).where(eq(habitTable.id, id)).execute();
+  //     router.replace("/")
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+
+  // };
 
   async function handleSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -166,7 +166,7 @@ export default function FormScreen() {
         name: values.name,
         description: values.description,
         duration: Number(values.duration),
-        category: values.category.value,
+        // category: values.category.value,
         enableNotifications: values.enableNotifications,
       }).where(eq(habitTable.id, id as string))
         .execute();
@@ -334,33 +334,32 @@ export default function FormScreen() {
           </View>
         </Form>
       </FormElement>
-      <AlertDialog>
+      {/* <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button
 
-            variant="destructive"
-            className="shadow shadow-foreground/5 my-4"
+          <Button
+            className="shadow shadow-foreground/5 my-4 bg-background"
           >
-            <Text>Delete</Text>
+            <Text>Archive</Text>
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this Habit ?
+              Are you sure you want to archive this habit ?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>
               <Text>Cancel</Text>
             </AlertDialogCancel>
-            <AlertDialogAction className="bg-destructive" onPress={handleDeleteHabit}>
-              <Text>Continue</Text>
+            <AlertDialogAction className="bg-foreground" onPress={handleArchiveHabit}>
+              <Text>Archive</Text>
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
+      </AlertDialog> */}
     </ScrollView>
   );
 }

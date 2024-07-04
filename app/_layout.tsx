@@ -1,18 +1,17 @@
 import "./global.css";
 import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {type Theme, ThemeProvider} from "@react-navigation/native";
 import {SplashScreen, Stack} from "expo-router";
 import {StatusBar} from "expo-status-bar";
 import * as React from "react";
-import {Platform} from "react-native";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import {ThemeToggle} from "@/components/ThemeToggle";
 import {PortalHost} from "@/components/primitives/portal";
 import {DatabaseProvider} from "@/db/provider";
 import {setAndroidNavigationBar} from "@/lib/android-navigation-bar";
 import {NAV_THEME} from "@/lib/constants";
 import {useColorScheme} from "@/lib/useColorScheme";
+import {getItem, setItem} from "@/lib/storage";
+import {Platform} from "react-native";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -29,7 +28,7 @@ export {
 } from "expo-router";
 
 export const unstable_settings = {
-  initialRouteName: "index",
+  initialRouteName: "(tabs)",
 };
 
 // Prevent the splash screen from auto-hiding before getting the color scheme.
@@ -41,14 +40,14 @@ export default function RootLayout() {
 
   React.useEffect(() => {
     (async () => {
-      const theme = await AsyncStorage.getItem("theme");
+      const theme = getItem("theme");
       if (Platform.OS === "web") {
         // Adds the background color to the html element to prevent white background on overscroll.
         document.documentElement.classList.add("bg-background");
       }
       if (!theme) {
         setAndroidNavigationBar(colorScheme);
-        AsyncStorage.setItem("theme", colorScheme);
+        setItem("theme", colorScheme);
         setIsColorSchemeLoaded(true);
         return;
       }
@@ -72,29 +71,27 @@ export default function RootLayout() {
 
   return (
     <>
-      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <DatabaseProvider>
+      <DatabaseProvider>
+        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
           <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
           <GestureHandlerRootView style={{flex: 1}}>
             <BottomSheetModalProvider>
-              <Stack initialRouteName="index" >
-                <Stack.Screen name="index" />
-                <Stack.Screen name="create" options={{presentation: "containedModal"}} />
-
-                <Stack.Screen
-                  name="settings/index"
-                  options={{
-                    headerBackTitleVisible: false,
-                    title: "Settings",
-                    headerShadowVisible: false,
-                  }}
-                />
+              <Stack >
+                <Stack.Screen name="(tabs)" options={{headerShown: false}} />
+                <Stack.Screen options={{
+                  headerShadowVisible: false,
+                  headerBackTitleVisible: false,
+                }} name="habits/archive" />
+                <Stack.Screen options={{
+                  headerShadowVisible: false,
+                  headerBackTitleVisible: false,
+                }} name="habits/[id]" />
               </Stack>
             </BottomSheetModalProvider>
           </GestureHandlerRootView>
 
-        </DatabaseProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </DatabaseProvider>
       <PortalHost />
     </>
 

@@ -9,7 +9,7 @@ interface ListHeaderProps extends ViewProps {
 
 export const ListHeader: React.FC<ListHeaderProps> = ({children, className, ...props}) => {
 	return (
-		<View className={cn("py-1.5 px-4", className)} {...props}>
+		<View className={cn("py-1.5 px-4 text-background", className)} {...props}>
 			{children}
 		</View>
 	);

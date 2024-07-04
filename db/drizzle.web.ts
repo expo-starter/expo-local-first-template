@@ -4,6 +4,7 @@ import { useDatabase } from "./provider";
 import { useEffect, useReducer } from "react";
 
 export const initialize = async (): Promise<SQLJsDatabase> => {
+  console.log("initialze web");
   const sqlPromise = initSqlJs({
     locateFile: (file) => `https://sql.js.org/dist/${file}`,
   });

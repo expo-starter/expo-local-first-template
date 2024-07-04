@@ -1,4 +1,25 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MMKV } from "react-native-mmkv";
+
+export const storage = new MMKV();
+
+export function getItem<T>(key: string): T | null {
+  const value = storage.getString(key);
+  try {
+    return value ? JSON.parse(value) || null : null;
+  } catch (error) {
+    // Handle the error here
+    console.error("Error parsing JSON:", error);
+    return null;
+  }
+}
+
+export function setItem<T>(key: string, value: T) {
+  storage.set(key, JSON.stringify(value));
+}
+
+export function removeItem(key: string) {
+  storage.delete(key);
+}
 
 const HABIT_KEY = "habits";
 
@@ -9,10 +30,11 @@ export type Habit = {
   duration: number;
   category: string;
   enableNotifications: boolean;
+  archived: boolean;
 };
 
 export async function getHabits(): Promise<Habit[]> {
-  const habitsString = await AsyncStorage.getItem(HABIT_KEY);
+  const habitsString = await storage.getString(HABIT_KEY);
   if (!habitsString) {
     return [];
   }
@@ -20,7 +42,7 @@ export async function getHabits(): Promise<Habit[]> {
 }
 
 export async function setHabits(habits: Habit[]): Promise<void> {
-  await AsyncStorage.setItem(HABIT_KEY, JSON.stringify(habits));
+  await storage.set(HABIT_KEY, JSON.stringify(habits));
 }
 
 export async function deleteHabit(id: string): Promise<void> {

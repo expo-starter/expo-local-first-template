@@ -12,6 +12,9 @@ export const habitTable = sqliteTable("habits", {
   description: text("description").notNull(),
   category: text("category").notNull(),
   duration: integer("duration").notNull(),
+  archived: integer("archived", {
+    mode: "boolean",
+  }).default(false),
   enableNotifications: integer("enable_notifications", {
     mode: "boolean",
   }).default(false),
