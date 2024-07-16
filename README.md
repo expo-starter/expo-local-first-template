@@ -1,4 +1,4 @@
-# React Native Expo Template  [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/younes0x53)
+# Expo Starter Template  [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/y0x53)
 
 <p align="center">
   <a href="https://expo-starter.com/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
