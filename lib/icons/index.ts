@@ -12,4 +12,4 @@ export { Sun } from "./Sun";
 export { Bell } from "./Bell";
 export { Check } from "./Check";
 export { Moon } from "./Moon";
-export { Smartphone } from "./Smartphone";
+export { Smartphone } from "./SmartPhone";
