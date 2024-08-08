@@ -4,7 +4,9 @@
   <a href="https://expo-starter.com/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
 </p>
 
-Say goodbye to time-consuming chores such implementing libraries, and developing reusable components. Our project boilerplate helps removing repetitive tasks when initiating a project from zero. It includes only the most frequently utilized libraries, so you can hit the ground running with a fully configured setup.
+The `Expo Starter Template` is a free project model with up-to-date frameworks and configurations for your new Expo project. It helps eliminate repetitive tasks when starting a project from scratch. This template integrates carefully selected libraries to help you bootstrap your new React Native and Expo app with the most effective frameworks and tools available in the market.
+
+The project integrates universal version of [shadcn-ui](https://ui.shadcn.com/) components, Tailwind styling, state management, and a local-first database strategy for universal mobile apps on Android, iOS, and Web.
 
 
 [Web App Demo](https://expo-starter.github.io/expo-template/)
@@ -28,6 +30,9 @@ New :
 
 In-progress :
 - [Cloudflare D1](https://developers.cloudflare.com/d1/) for data persistance on Web as well as offline mode
+
+Planned: 
+- [OP-sqlite](https://github.com/OP-Engineering/op-sqlite) local-first database for mobile only
 
 ### Requirements
 
