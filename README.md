@@ -1,7 +1,7 @@
 # Expo Starter Template  [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/y0x53)
 
 <p align="center">
-  <a href="https://expo-starter.com/"><img src="assets/github-banner.png?raw=true" alt="React Native Expo Starter Template"></a>
+  <a href="https://expostarter.com/"><img src="assets/github-banner.png?raw=true" alt="Expo Starter Kit"></a>
 </p>
 
 The `Expo Starter Template` is a free project model with up-to-date frameworks and configurations for your new Expo project. It helps eliminate repetitive tasks when starting a project from scratch. This template integrates carefully selected libraries to help you bootstrap your new React Native and Expo app with the most effective frameworks and tools available in the market.
