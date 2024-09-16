@@ -4,4 +4,5 @@ export default {
   out: './db/migrations',
   driver: 'expo',
   dialect: 'sqlite',
-} satisfies Config;
+
+}satisfies Config;

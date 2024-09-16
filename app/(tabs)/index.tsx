@@ -77,6 +77,12 @@ function ScreenContent() {
             <Text className="text-sm">
               If you change the schema, you need to run{" "}
               <Text className="text-sm font-mono text-muted-foreground bg-muted">
+                bun db:generate
+              </Text>
+              <Text className="text-sm px-1">
+                then
+              </Text>
+              <Text className="text-sm font-mono text-muted-foreground bg-muted">
                 bun migrate
               </Text>
             </Text>

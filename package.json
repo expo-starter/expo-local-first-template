@@ -14,6 +14,7 @@
     "web": "expo start -c --web",
     "export": "expo export -p web",
     "format": "biome check --no-errors-on-unmatched --apply .",
+    "db:generate": "bun drizzle-kit generate",
     "migrate": "bun ./db/migrate.ts",
     "db:studio": "bun drizzle-kit studio"
   },
@@ -68,7 +69,7 @@
     "react-native-screens": "3.31.1",
     "react-native-svg": "15.3.0",
     "react-native-web": "~0.19.6",
-    "sql.js": "^1.10.3",
+    "sql.js": "^1.11.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.6",

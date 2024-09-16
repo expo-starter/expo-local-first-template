@@ -42,7 +42,6 @@ export default function Home() {
         })
         .where(eq(habitTable.id, habitId))
         .execute();
-      console.log("restore")
     } catch (error) {
       console.error("error", error);
     }
@@ -56,7 +55,6 @@ export default function Home() {
       {
         text: 'Continue',
         onPress: () => {
-          console.log("pressed")
           // try {
           //   await db?.delete(habitTable).where(eq(habitTable.id, habitId)).execute();
           // } catch (error) {
