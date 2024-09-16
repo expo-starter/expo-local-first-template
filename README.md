@@ -1,4 +1,4 @@
-# Expo Starter Template  [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/y0x53)
+# Expo Local-first Template  [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40younes0x53)](https://twitter.com/y0x53)
 
 <p align="center">
   <a href="https://expostarter.com/"><img src="assets/github-banner.png?raw=true" alt="Expo Starter Kit"></a>
@@ -29,10 +29,7 @@ New :
 - 💽 Full integrated with [DrizzleORM](https://drizzle.dev) including live query
 
 In-progress :
-- [Cloudflare D1](https://developers.cloudflare.com/d1/) for data persistance on Web as well as offline mode
-
-Planned: 
-- [OP-sqlite](https://github.com/OP-Engineering/op-sqlite) local-first database for mobile only
+- [OP-sqlite](https://github.com/OP-Engineering/op-sqlite) local-first database and sync with [Tusco](https://docs.turso.tech/sdk/ts/quickstart)
 
 ### Requirements
 
