@@ -9,7 +9,7 @@ The `Expo Starter Template` is a free project model with up-to-date frameworks a
 The project integrates universal version of [shadcn-ui](https://ui.shadcn.com/) components, Tailwind styling, state management, and a local-first database strategy for universal mobile apps on Android, iOS, and Web.
 
 
-[Web App Demo](https://expo-starter.github.io/expo-template/)
+[Web App Demo](https://expo-starter.github.io/expo-local-first-template)
 
 ## 📚 What's inside
 
