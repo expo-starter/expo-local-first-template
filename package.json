@@ -54,6 +54,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.4",
     "expo-web-browser": "~13.0.3",
+    "gh-pages": "^6.1.1",
     "lucide-react-native": "^0.314.0",
     "nativewind": "^4.0.36",
     "next-themes": "^0.3.0",
