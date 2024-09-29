@@ -79,7 +79,6 @@ export default function Home() {
       </View>
     );
   }
-  console.log("habits", habits)
   return (
     <View className="flex flex-1 bg-background  p-8">
       <Stack.Screen
